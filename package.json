@@ -6,15 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-	"lint-staged": {
-	  "linters": {
-		"*.js|*.vue": [
-		  "eslint --ignore-path .gitignore --fix"
-		]
-	  },
-	  "ignore": []
-	},
-	"pre-commit": "lint:staged",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "pages/**/*.vue": [
+      "eslint --fix","git add"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/YanxinNet/uView.git"
@@ -30,7 +32,8 @@
     "vue-i18n": "^8.20.0"
   },
   "devDependencies": {
-    "lint-staged": "^10.5.4",
-    "pre-commit": "^1.2.2"
+    "@commitlint/cli": "^12.0.1",
+    "@commitlint/config-conventional": "^12.0.1",
+    "husky": "^5.2.0"
   }
 }
