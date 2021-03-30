@@ -39,7 +39,7 @@
 			});
 		},
 		created() {
-			console.log("abcaa")
+			console.log("abcaaasssaqqssasaqqasss")
 		},
 		methods: {
 			openPage(path) {

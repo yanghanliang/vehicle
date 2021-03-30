@@ -14,8 +14,7 @@
   },
   "lint-staged": {
     "*.vue": [
-      "eslint",
-      "git add"
+      "eslint --ignore-path"
     ]
   },
   "repository": {
