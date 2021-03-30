@@ -4,19 +4,19 @@
   "description": "<p align=\"center\">\r     <img alt=\"logo\" src=\"https://uviewui.com/common/logo.png\" width=\"120\" height=\"120\" style=\"margin-bottom: 10px;\">\r </p>\r <h3 align=\"center\" style=\"margin: 30px 0 30px;font-weight: bold;font-size:40px;\">uView</h3>\r <h3 align=\"center\">多平台快速开发的UI框架</h3>",
   "main": "main.js",
   "scripts": {
-    "precommit": "lint-staged",
+    "postinstall": "cp .hooks/* .git/hooks/",
+    "lint:staged": "lint-staged",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run precommit"
-    }
-  },
   "lint-staged": {
-    "*.vue": [
-      "eslint --ignore-path"
-    ]
+    "linters": {
+      "*.vue": [
+        "eslint --ignore-path .gitignore --fix"
+      ]
+    },
+    "ignore": []
   },
+  "pre-commit": "lint:staged",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/YanxinNet/uView.git"
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "husky": "^5.2.0",
-    "lint-staged": "^10.5.4"
+    "lint-staged": "^10.5.4",
+    "pre-commit": "^1.2.2"
   }
 }
