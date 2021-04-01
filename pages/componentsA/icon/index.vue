@@ -608,14 +608,13 @@ export default {
       return this.$u.toast('H5暂不支持复制')
       // #endif
 
-      const params = {
+
+      uni.setClipboardData({
         data: name,
         success: () => {
 
         }
-      }
-
-      uni.setClipboardData(params)
+      })
 
       uni.hideToast()
       this.$u.toast('图标名称已复制')
