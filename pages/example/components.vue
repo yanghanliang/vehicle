@@ -40,6 +40,9 @@
 		},
 		created() {
 			console.log("abcaaasssaqqrrssaseeaassaqqasashhss")
+			if (1 ===     2) {
+				console.log(123)
+			}
 		},
 		methods: {
 			openPage(path) {
