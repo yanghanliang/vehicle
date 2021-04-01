@@ -1,7 +1,7 @@
 <template>
-	<view class="wrap">
-		<view class="u-border-left u-border-top inner-wrap">
-			<view @tap="selectIcon(item.name)" class="u-icon-item u-border-bottom u-border-right" v-for="(item, index) in iconList" :key="index">
+  <view class="wrap">
+    <view class="u-border-left u-border-top inner-wrap">
+      <view @tap="selectIcon(item.name)" class="u-icon-item u-border-bottom u-border-right" v-for="(item, index) in iconList" :key="index">
 				<u-icon :name="item.name" size="40" color="#909399"></u-icon>
 				<text class="u-icon-name">{{item.name}}</text>
 			</view>
@@ -600,12 +600,12 @@ export default {
           name: 'zhuanfa'
         }
       ]
-    };
+    }
   },
   methods: {
     selectIcon (name) {
       // #ifdef H5
-      return this.$u.toast('H5暂不支持复制');
+      return this.$u.toast('H5暂不支持复制')
       // #endif
 
       const params = {
@@ -613,15 +613,15 @@ export default {
         success: () => {
 
         }
-      };
+      }
 
-      uni.setClipboardData(params);
+      uni.setClipboardData(params)
 
-      uni.hideToast();
-      this.$u.toast('图标名称已复制');
+      uni.hideToast()
+      this.$u.toast('图标名称已复制')
     }
   }
-};
+}
 </script>
 
 <style scoped lang="scss">

@@ -22,15 +22,9 @@ module.exports = {
         "uni": true 
     },
     "rules": {
-        "camelcase": 2,
-        "curly": 2,
-        "brace-style": [2, "1tbs"],
-        "quotes": [2, "single"],
-        "semi": [2, "always"],
-        "space-infix-ops": 2,
-        // 关闭tab的检测
         'no-tabs': 'off',
-        'eqeqeq': 'off',
+        // 'eqeqeq': 'off',
+        // "semi": [2, "always"],
         'no-unreachable': 'off',
     }
 }
