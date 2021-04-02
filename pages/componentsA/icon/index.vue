@@ -608,7 +608,6 @@ export default {
       return this.$u.toast('H5暂不支持复制')
       // #endif
 
-
       uni.setClipboardData({
         data: name,
         success: () => {
