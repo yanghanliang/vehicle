@@ -13,7 +13,8 @@ import uView from 'uview-ui';
 Vue.use(uView);
 
 // 此处为演示vuex使用，非uView的功能部分
-import store from '@/store';
+import store from '@/store/index.js';
+Vue.prototype.$store = store
 
 // 引入uView提供的对vuex的简写法文件
 let vuexStore = require('@/store/$u.mixin.js');

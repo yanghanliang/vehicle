@@ -2,7 +2,7 @@
     "name" : "k",
     "appid" : "__UNI__0B08D3B",
     "description" : "多平台快速开发的UI框架",
-    "versionName" : "1.8.4",
+    "versionName" : "1.0.0",
     "versionCode" : "100",
     "transformPx" : false,
     "app-plus" : {
