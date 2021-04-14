@@ -8,11 +8,22 @@ const store = new Vuex.Store({
 		vuex_version: '1.0.1',
 		vuex_demo: '绛紫',
 		url: '',
+
+		currentData: {
+			id: ''
+		}
 	},
 	mutations: {
+		// 设置图片地址
 		setImagesUrl (state, url) {
 			console.log(url, 'url')
 			state.url = url
+		},
+		// 更新当前数据
+		updateCurrentData (state, params) {
+			for(let key in params) {
+				state.currentData[key] = params[key]
+			}
 		}
 	},
 	getters: {

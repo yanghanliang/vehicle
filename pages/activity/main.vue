@@ -1,35 +1,35 @@
 <template>
-	<view class="activity">
-		<view class="activity-left">
-			<view
-				v-for="(item, index) in typeList"
-				:key="index"
-				:type="item.type"
-				class="al-item"
-			>
-				{{ item.text }}
-			</view>
-		</view>
-		<view class="activity-content">
-			<view class="mobile-phone">
-				<view
-					v-for="(item, index) in viewList"
-					:key="item.type + index"
-					@click="showCurrentConfig(item, index)"
-				>
-					<component :value="item" :is="item.type"></component>
-				</view>
-			</view>
-		</view>
-		<view>{{  }} pppp {{vuex_demo}}</view>
-		<view class="activity-right">
-			<m-handle ref="handle" />
-		</view>
-	</view>
+  <view class="activity">
+    <view class="activity-left">
+      <view
+        v-for="(item, index) in typeList"
+        :key="index"
+        :type="item.type"
+        class="al-item"
+      >
+        {{ item.text }}
+      </view>
+    </view>
+    <view class="activity-content">
+      <view class="mobile-phone">
+        <view
+          v-for="(item, index) in viewList"
+          :key="item.type + index"
+          @click="showCurrentConfig(item, index)"
+        >
+          <component :value="item" :is="item.type"></component>
+        </view>
+      </view>
+    </view>
+    <view>pppp {{ vuex_demo }}</view>
+    <view class="activity-right">
+      <m-handle ref="handle" />
+    </view>
+  </view>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 import mHandle from '@/components/handle/index'
 import mDynamic from '@/components/dynamic/index'
@@ -50,10 +50,10 @@ export default {
   },
   data () {
     return {
-      currentData: {
-        data: null,
-        position: null,
-      },
+      //   currentData: {
+      //     data: null,
+      //     position: null,
+      //   },
       isPressDown: false, // 是否按下
       isDrag: false, // 是否拖动
       parentEle: null, // 鼠标抬起时的父元素
@@ -61,19 +61,19 @@ export default {
       typeList: [
         {
           type: 'mImage',
-          text: '图片'
+          text: '图片',
         },
         {
           type: 'mTextarea',
-          text: '文本'
+          text: '文本',
         },
         {
           type: 'mTask',
-          text: '任务'
+          text: '任务',
         },
         {
           type: 'mSignIn',
-          text: '签到'
+          text: '签到',
         },
       ],
       viewList: [
@@ -90,32 +90,30 @@ export default {
         // {
         // 	type: 'mTask',
         // }
-      ]
+      ],
     }
   },
   computed: {
-    ...mapState([
-      'vuex_demo',
-    ]),
+    ...mapState(['vuex_demo']),
     defaultConfig () {
       const defaultData = {
         mImage: {
           type: 'mImage',
           width: '100%',
           height: '300rpx',
-          src: 'https://cdn.uviewui.com/uview/example/fade.jpg'
+          src: 'https://cdn.uviewui.com/uview/example/fade.jpg',
         },
         mTextarea: {
           type: 'mTextarea',
-          text: 'hsadgsadsgadsadsagdsgsadsadadgshdgsadgsadgsagdsagdsadsajdgsaj'
+          text: 'hsadgsadsgadsadsagdsgsadsadadgshdgsadgsadgsagdsagdsadsajdgsaj',
         },
         mTask: {
-          type: 'mTask'
-        }
+          type: 'mTask',
+        },
       }
 
       return defaultData[this.type]
-    }
+    },
   },
   mounted () {
     this.init()
@@ -123,9 +121,16 @@ export default {
     console.log(this.getTodoById, 'ppppp')
   },
   methods: {
+    ...mapMutations(['updateCurrentData']),
     showCurrentConfig (item, index) {
       this.currentData.data = item
       this.currentData.position = index
+
+      const params = {
+        ...item,
+        position: index,
+      }
+      this.updateCurrentData(params)
 
       console.log('点击组件', this.$refs)
       this.$refs.handle.showCurrentConfig(item)
@@ -152,25 +157,27 @@ export default {
       const vm = this
 
       const My = function () {
-        this.box = document.querySelector('.activity')										// 最外层的盒子元素
-        this.clickEleInfo = document.querySelector('.al-item').getBoundingClientRect()	// 获取点击元素的样式
-        this.line = null																	// 提示线条
-        this.clickEle = null																// 开始元素
-        this.isDrag = false																	// 拖动
-        this.cloneEle = null																// 克隆内容元素
-        this.parentEle = null																// 盒子元素
-        this.isPressDown = false															// 按下 默认 false || 抬起的状态
-        this.end_x = 0																		// 鼠标 x 轴坐标
-        this.end_y = 0																		// 鼠标 y 轴坐标
+        this.box = document.querySelector('.activity') // 最外层的盒子元素
+        this.clickEleInfo = document
+          .querySelector('.al-item')
+          .getBoundingClientRect() // 获取点击元素的样式
+        this.line = null // 提示线条
+        this.clickEle = null // 开始元素
+        this.isDrag = false // 拖动
+        this.cloneEle = null // 克隆内容元素
+        this.parentEle = null // 盒子元素
+        this.isPressDown = false // 按下 默认 false || 抬起的状态
+        this.end_x = 0 // 鼠标 x 轴坐标
+        this.end_y = 0 // 鼠标 y 轴坐标
 
-        this.init()																			// 初始化
+        this.init() // 初始化
       }
 
       // 初始化
       My.prototype.init = function () {
-        this.pressDown()                    // 鼠标按下
-        this.mousemove()                    // 鼠标移动
-        this.mouseup()                      // 鼠标抬起事件
+        this.pressDown() // 鼠标按下
+        this.mousemove() // 鼠标移动
+        this.mouseup() // 鼠标抬起事件
       }
 
       // 鼠标按下
@@ -214,8 +221,10 @@ export default {
           const e = window.event || event
 
           // 分别兼容ie和chrome
-          const scrollX = document.documentElement.scrollLeft || document.body.scrollLeft
-          const scrollY = document.documentElement.scrollTop || document.body.scrollTop
+          const scrollX =
+            document.documentElement.scrollLeft || document.body.scrollLeft
+          const scrollY =
+            document.documentElement.scrollTop || document.body.scrollTop
           // 获取 x 和 y
           that.end_x = e.clientX + scrollX
           that.end_y = e.clientY + scrollY
@@ -226,8 +235,13 @@ export default {
           // 判断是否需要移动元素
           if (that.isDrag) {
             const offsetTop = that.parentEle.getBoundingClientRect().y
-            that.cloneEle.style.top = that.end_y - offsetTop - that.clickEleInfo.height / 2 + 'px'
-            that.cloneEle.style.left = that.end_x - that.parentEle.offsetLeft - that.clickEleInfo.width / 2 + 'px'
+            that.cloneEle.style.top =
+              that.end_y - offsetTop - that.clickEleInfo.height / 2 + 'px'
+            that.cloneEle.style.left =
+              that.end_x -
+              that.parentEle.offsetLeft -
+              that.clickEleInfo.width / 2 +
+              'px'
             that.cloneEle.style.zIndex = -1
           }
         }
@@ -275,60 +289,61 @@ export default {
       }
 
       new My()
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss">
-	.activity {
-		display: flex;
+.activity {
+  display: flex;
 
-		> view {
-			min-height: 400upx
-		}
+  > view {
+    min-height: 400upx;
+  }
 
-		.activity-left {
-			width: 150upx;
-			text-align: center;
-			background-color: pink;
+  .activity-left {
+    width: 150upx;
+    text-align: center;
+    background-color: pink;
 
-			.al-item, .al-clone {
-				width: 150upx;
-				height: 60upx;
-				line-height: 60upx;
-				border-bottom: 1upx solid red;
-				background-color: pink;
-			}
-		}
+    .al-item,
+    .al-clone {
+      width: 150upx;
+      height: 60upx;
+      line-height: 60upx;
+      border-bottom: 1upx solid red;
+      background-color: pink;
+    }
+  }
 
-		.activity-right {
-			padding: 40upx;
-			min-width: 150upx;
-			border: 1upx solid #ddd;
+  .activity-right {
+    padding: 40upx;
+    min-width: 150upx;
+    border: 1upx solid #ddd;
 
-			.ac-save {
-				color: #fff;
-				text-align: center;
-				padding: 6upx 10upx;
-				background-color: blue;
-			}
-		}
+    .ac-save {
+      color: #fff;
+      text-align: center;
+      padding: 6upx 10upx;
+      background-color: blue;
+    }
+  }
 
-		.activity-content {
-			flex: 1;
+  .activity-content {
+    flex: 1;
 
-			.mobile-phone {
-				width: 900upx;
-				height: 1000upx;
-				margin: 0 auto;
-				position: relative;
-				border: 1upx solid #666;
+    .mobile-phone {
+      width: 900upx;
+      height: 1000upx;
+      margin: 0 auto;
+      position: relative;
+      border: 1upx solid #666;
 
-				textarea {
-					background-color: pink;
-				}
-			}
-		}
-	}
+      textarea {
+        background-color: pink;
+      }
+    }
+  }
+}
 </style>
