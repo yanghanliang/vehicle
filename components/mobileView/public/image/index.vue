@@ -16,6 +16,7 @@
         name: 'mImage',
         mixins: [mixin],
         props: {
+            // value 参数名不能随意更改
             value: {
                 type: Object,
                 default: function() {

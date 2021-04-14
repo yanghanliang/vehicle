@@ -17,7 +17,7 @@
           :key="item.type + index"
           @click="showCurrentConfig(item, index)"
         >
-          <component :value="item" :is="item.type" :key="item.type + index + Math.random()"></component>
+          <component ref="mobileView" :value="item" :is="item.type" :key="item.type + index + Math.random()"></component>
         </view>
       </view>
     </view>
@@ -130,8 +130,15 @@ export default {
     console.log(this.getTodoById, 'ppppp')
   },
   methods: {
-    ...mapMutations(['updateData']),
+    ...mapMutations([
+      'updateData',
+      'initDefalutData',
+    ]),
     showCurrentConfig (item, index) {
+      if (index !== this.currentData.position) {
+        this.initDefalutData(item)
+      }
+
       this.currentData.data = item
       this.currentData.position = index
 
@@ -344,7 +351,7 @@ export default {
 
     .ac-mobile {
       width: 900upx;
-      height: 1000upx;
+      min-height: 1000upx;
       margin: 0 auto;
       position: relative;
       border: 1upx solid #666;

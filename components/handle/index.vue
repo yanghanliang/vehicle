@@ -32,9 +32,8 @@
 			};
 		},
 		methods: {
-			showCurrentConfig({ type }) {
-				this.type = type
-				console.log(type, 'type')
+			showCurrentConfig(data) {
+				this.type = data.type
 			}
 		},
 	};
