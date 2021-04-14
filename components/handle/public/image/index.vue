@@ -14,21 +14,28 @@
                 </u-radio>
             </u-radio-group>
         </u-form-item>
-        <u-form-item label="模块上间距"><u-input v-model="form.name" /></u-form-item>
-        <u-form-item label="模块下间距"><u-input v-model="form.name" /></u-form-item>
+        <u-form-item label="模块上间距"><u-input v-model="form.marginTop" /></u-form-item>
+        <u-form-item label="模块下间距"><u-input v-model="form.marginBottom" /></u-form-item>
         <u-button @click="submit">提交</u-button>
     </u-form>
 </template>
 
 <script>
-    import { mapMutations } from 'vuex'
+    import { mapMutations, mapState } from 'vuex'
 
     export default {
+        computed: {
+            ...mapState([
+                'currentData'
+            ]),
+        },
         data() {
 			return {
                 action: 'http://www.example.com/upload',
 				form: {
-					name: '',
+                    src: '',
+					marginTop: '',
+                    marginBottom: '',
 				},
 				radioList: [
 					{
@@ -45,17 +52,26 @@
 		},
         methods: {
 			...mapMutations([
-				'setImagesUrl' // 将 `this.incrementBy(amount)` 映射为 `this.$store.commit('incrementBy', amount)`
+				'updateData',
 			]),
             submit() {
-                console.log(this.$refs.uUpload, 'ppp')
-                this.setImagesUrl(this.$refs.uUpload.lists[0].url)
-                // this.$store.commit('setImagesUrl', this.$refs.uUpload.lists[0].url)
+                this.form.src = this.$refs.uUpload.lists[0].url
             },
             getImages() {
                 console.log(this.$refs.uUpload, 'ppp')
             }
         },
+        watch: {
+            form: {
+                deep: true,
+                handler: function(newVal) {
+                    this.updateData({
+                        ...newVal,
+                        position: this.currentData.position,
+                    })
+                }
+            }
+        }
     }
 </script>
 

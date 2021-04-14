@@ -11,13 +11,13 @@
       </view>
     </view>
     <view class="activity-content">
-      <view class="mobile-phone">
+      <view class="ac-mobile">
         <view
           v-for="(item, index) in viewList"
           :key="item.type + index"
           @click="showCurrentConfig(item, index)"
         >
-          <component :value="item" :is="item.type"></component>
+          <component :value="item" :is="item.type" :key="item.type + index + Math.random()"></component>
         </view>
       </view>
     </view>
@@ -32,21 +32,52 @@
 import { mapState, mapMutations } from 'vuex'
 
 import mHandle from '@/components/handle/index'
-import mDynamic from '@/components/dynamic/index'
 
-import mTask from '@/components/dynamic/public/task/index'
-import mImage from '@/components/dynamic/public/image/index'
-import mTextarea from '@/components/dynamic/public/textarea/index'
+import mTask from '@/components/mobileView/public/task/index'
+import mImage from '@/components/mobileView/public/image/index'
+import mTextarea from '@/components/mobileView/public/textarea/index'
 
 export default {
   name: 'activity',
   components: {
     mHandle,
-    mDynamic,
 
     mTask,
     mImage,
     mTextarea,
+  },
+  computed: {
+    ...mapState([
+      'vuex_demo',
+      'currentData',
+      'viewList',
+    ]),
+    defaultConfig () {
+      const defaultData = {
+        mImage: {
+          type: 'mImage',
+          width: '100%',
+          height: '300rpx',
+          marginTop: '',
+          marginBottom: '',
+          src: 'https://cdn.uviewui.com/uview/example/fade.jpg',
+        },
+        mTextarea: {
+          type: 'mTextarea',
+          text: 'hsadgsadsgadsadsagdsgsadsadadgshdgsadgsadgsagdsagdsadsajdgsaj',
+        },
+        mTask: {
+          type: 'mTask',
+        },
+      }
+
+      return defaultData[this.type]
+    },
+  },
+  watch: {
+    viewList (newVal, oldVal) {
+      console.log(newVal, 'newVal-main')
+    }
   },
   data () {
     return {
@@ -76,44 +107,22 @@ export default {
           text: '签到',
         },
       ],
-      viewList: [
-        // {
-        // 	type: 'mImage',
-        // 	width: '100%',
-        // 	height: '300rpx',
-        // 	src: 'https://cdn.uviewui.com/uview/example/fade.jpg'
-        // },
-        // {
-        // 	type: 'mTextarea',
-        // 	value: ''
-        // },
-        // {
-        // 	type: 'mTask',
-        // }
-      ],
+    //   viewList: [
+    //     {
+    //     	type: 'mImage',
+    //     	width: '100%',
+    //     	height: '300rpx',
+    //     	src: 'https://cdn.uviewui.com/uview/example/fade.jpg'
+    //     },
+    //     {
+    //     	type: 'mTextarea',
+    //     	value: ''
+    //     },
+    //     {
+    //     	type: 'mTask',
+    //     }
+    //   ],
     }
-  },
-  computed: {
-    ...mapState(['vuex_demo']),
-    defaultConfig () {
-      const defaultData = {
-        mImage: {
-          type: 'mImage',
-          width: '100%',
-          height: '300rpx',
-          src: 'https://cdn.uviewui.com/uview/example/fade.jpg',
-        },
-        mTextarea: {
-          type: 'mTextarea',
-          text: 'hsadgsadsgadsadsagdsgsadsadadgshdgsadgsadgsagdsagdsadsajdgsaj',
-        },
-        mTask: {
-          type: 'mTask',
-        },
-      }
-
-      return defaultData[this.type]
-    },
   },
   mounted () {
     this.init()
@@ -121,7 +130,7 @@ export default {
     console.log(this.getTodoById, 'ppppp')
   },
   methods: {
-    ...mapMutations(['updateCurrentData']),
+    ...mapMutations(['updateData']),
     showCurrentConfig (item, index) {
       this.currentData.data = item
       this.currentData.position = index
@@ -130,7 +139,7 @@ export default {
         ...item,
         position: index,
       }
-      this.updateCurrentData(params)
+      this.updateData(params)
 
       console.log('点击组件', this.$refs)
       this.$refs.handle.showCurrentConfig(item)
@@ -265,7 +274,7 @@ export default {
           vm.type = that.cloneEle.getAttribute('type')
 
           console.log(vm.type, '????', target)
-          if (['mobile-phone'].includes(className)) {
+          if (['ac-mobile'].includes(className)) {
             // target.append(that.cloneEle)
             that.cloneEle.remove()
 
@@ -290,7 +299,7 @@ export default {
 
       new My()
     },
-  },
+  }
 }
 </script>
 
@@ -333,7 +342,7 @@ export default {
   .activity-content {
     flex: 1;
 
-    .mobile-phone {
+    .ac-mobile {
       width: 900upx;
       height: 1000upx;
       margin: 0 auto;

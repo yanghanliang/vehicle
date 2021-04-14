@@ -10,20 +10,22 @@ const store = new Vuex.Store({
 		url: '',
 
 		currentData: {
-			id: ''
-		}
+			position: ''
+		},
+		viewList: []
 	},
 	mutations: {
-		// 设置图片地址
-		setImagesUrl (state, url) {
-			console.log(url, 'url')
-			state.url = url
-		},
 		// 更新当前数据
-		updateCurrentData (state, params) {
+		updateData (state, params) {
+			console.log(params, 'params')
 			for(let key in params) {
 				state.currentData[key] = params[key]
 			}
+
+			// 更新当前数据
+			state.viewList[params.position] = { ...state.currentData }
+			// 更新视图
+			state.viewList = [...state.viewList]
 		}
 	},
 	getters: {
