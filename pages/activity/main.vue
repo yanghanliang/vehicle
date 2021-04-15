@@ -62,13 +62,13 @@ export default {
           type: 'image',
           width: '100%',
           height: '300rpx',
-          marginTop: '10px',
+          marginTop: '',
           marginBottom: '',
           src: 'https://cdn.uviewui.com/uview/example/fade.jpg',
         },
         textarea: {
           type: 'textarea',
-          text: 'hsadgsadsgadsadsagdsgsadsadadgshdgsadgsadgsagdsagdsadsajdgsaj',
+          text: '心朝大海，春暖花开',
         },
         task: {
           type: 'task',
@@ -276,13 +276,6 @@ export default {
             // target.append(that.cloneEle)
             that.cloneEle.remove()
 
-            console.log('**********')
-
-            // 追加默认配置
-            // vm.viewList.push(vm.defaultConfig)
-
-            // vm.currentData.data = { ...vm.defaultConfig }
-            // vm.currentData.position = vm.viewList.length
             // 更新当前组件
             vm.updateData({
               ...vm.defaultConfig,
