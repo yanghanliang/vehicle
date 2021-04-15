@@ -5,6 +5,7 @@
         ref="uForm"
         :label-width="180"
     >
+	{{ JSON.stringify(value) }}??
         <u-form-item label="编辑文本内容">
             <u-input
                 v-model="form.text"
@@ -41,23 +42,10 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex'
 import mixin from '@/components/handle/mixin.js'
 
 export default {
     mixins: [mixin],
-    computed: {
-        ...mapState(['defalutData']),
-    },
-    watch: {
-        defalutData: {
-            deep: true,
-            handler: function (newVal) {
-                this.form = { ...newVal }
-                console.log('默认数据改变；额')
-            },
-        },
-    },
     data() {
         return {
             action: 'http://www.example.com/upload',

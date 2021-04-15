@@ -5,15 +5,10 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
 	state: {
-		vuex_version: '1.0.1',
-		vuex_demo: '绛紫',
-		url: '',
-
-		defalutData: {},
 		currentData: {
 			position: ''
 		},
-		viewList: []
+		viewList: [],
 	},
 	mutations: {
 		// 更新视图及当前数据
@@ -27,42 +22,11 @@ const store = new Vuex.Store({
 			state.viewList[params.position] = { ...state.currentData }
 			// 更新视图
 			state.viewList = [...state.viewList]
-		},
-		// 初始化默认数据
-		initDefalutData (state, item) {
-			console.log('初始化默认数据')
-			// 这里看看能不能通过事件触发 $emit $on  TODO
-			const test = {
-				mImage: {
-					src: '',
-					marginTop: '',
-					marginBottom: '',
-				},
-				mTextarea: {
-					href: '',
-					text: '',
-					color: '',
-					fontSize: '',
-					marginTop: '',
-					fontWeight: '',
-					marginBottom: '',
-				}
-			}
 
-			state.defalutData = test[item.type]
-
-			setTimeout(() => {
-				state.defalutData = { ...item }
-			});
+			console.log(state.viewList, 'state.viewList')
 		},
 	},
 	getters: {
-		yyuu: state => {
-			return state.vuex_demo
-		},
-		getTodoById: (state) => {
-			return state.vuex_demo.length + 1
-		}
 	}
 })
 

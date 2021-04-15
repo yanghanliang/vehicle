@@ -1,6 +1,5 @@
 <template>
     <u-form class="handle-image" :model="form" ref="uForm" :label-width="180">
-        {{ JSON.stringify(form) }}???
         <u-form-item label="更换图片">
             <u-input v-model="form.src" />
             <u-button type="primary">选择文件</u-button>
@@ -35,25 +34,10 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex'
 import mixin from '@/components/handle/mixin.js'
 
 export default {
     mixins: [mixin],
-    computed: {
-        ...mapState([
-            'defalutData'
-        ]),
-    },
-    watch: {
-        defalutData: {
-			deep: true,
-			handler: function (newVal) {
-				this.form = { ...newVal }
-				console.log('默认数据改变；额')
-			}
-		},
-    },
     data() {
         return {
             action: 'http://www.example.com/upload',

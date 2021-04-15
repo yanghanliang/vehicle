@@ -1,11 +1,14 @@
 import { mapMutations, mapState } from 'vuex'
 
 export default {
-    // computed: {
-    //     ...mapState([
-    //         'defalutData'
-    //     ]),
-    // },
+	props: {
+		value: {
+			type: Object,
+			default: function() {
+				return {}
+			}
+		}
+	},
     methods: {
         ...mapMutations([
             'updateData',
@@ -16,21 +19,21 @@ export default {
         }
     },
     watch: {
-		// defalutData: {
-		// 	deep: true,
-		// 	handler: function (newVal) {
-		// 		this.form = { ...newVal }
-		// 		console.log('默认数据改变；额')
-		// 	}
-		// },
+		value: {
+			immediate: true,
+			handler (newVal) {
+				this.form = Object.assign(this.form, newVal)
+				console.log(newVal, '更新handleData')
+			}
+		},
         form: {
             deep: true,
             handler: function(newVal) {
-                console.log(newVal, 'newVal-text')
                 this.updateData({
                     ...newVal,
                     position: this.currentData.position,
                 })
+                console.log(newVal, 'handle改变时更新view')
             }
         }
     },

@@ -17,34 +17,36 @@
           :key="item.type + index"
           @click="showCurrentConfig(item, index)"
         >
-          <component ref="mobileView" :value="item" :is="item.type" :key="item.type + index + Math.random()"></component>
+          <component ref="mobileView" :value="item" :is="item.type | componentsName('view')" :key="item.type + index + Math.random()"></component>
         </view>
       </view>
     </view>
-    <view>pppp {{ vuex_demo }}</view>
     <view class="activity-right">
-      <m-handle ref="handle" />
+      <component :is="currentData.type | componentsName('handle')" :value="currentData"></component>
     </view>
   </view>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
-
-import mHandle from '@/components/handle/index'
-
-import mTask from '@/components/mobileView/public/task/index'
-import mImage from '@/components/mobileView/public/image/index'
-import mTextarea from '@/components/mobileView/public/textarea/index'
+import { mapState, mapMutations, mapGetters } from 'vuex'
+// 视图
+import viewTask from '@/components/mobileView/public/task/index'
+import viewImage from '@/components/mobileView/public/image/index'
+import viewTextarea from '@/components/mobileView/public/textarea/index'
+// 操作
+import handleTask from '@/components/handle/public/task/index'
+import handleImage from '@/components/handle/public/image/index'
+import handleTextarea from '@/components/handle/public/textarea/index'
 
 export default {
   name: 'activity',
   components: {
-    mHandle,
-
-    mTask,
-    mImage,
-    mTextarea,
+    viewTask,
+    viewImage,
+    viewTextarea,
+    handleTask,
+    handleImage,
+    handleTextarea
   },
   computed: {
     ...mapState([
@@ -52,82 +54,69 @@ export default {
       'currentData',
       'viewList',
     ]),
+    ...mapGetters([
+      'currentDataCopy'
+    ]),
     defaultConfig () {
       const defaultData = {
-        mImage: {
-          type: 'mImage',
+        image: {
+          type: 'image',
           width: '100%',
           height: '300rpx',
           marginTop: '',
           marginBottom: '',
           src: 'https://cdn.uviewui.com/uview/example/fade.jpg',
         },
-        mTextarea: {
-          type: 'mTextarea',
+        textarea: {
+          type: 'textarea',
           text: 'hsadgsadsgadsadsagdsgsadsadadgshdgsadgsadgsagdsagdsadsajdgsaj',
         },
-        mTask: {
-          type: 'mTask',
+        task: {
+          type: 'task',
         },
       }
 
       return defaultData[this.type]
     },
   },
-  watch: {
-    viewList (newVal, oldVal) {
-      console.log(newVal, 'newVal-main')
+  filters: {
+    componentsName (type, prefix) {
+      if (type) {
+        return prefix + type.slice(0, 1).toLocaleUpperCase() + type.slice(1)
+      }
+
+      return 'handleImage'
     }
   },
   data () {
     return {
-      //   currentData: {
-      //     data: null,
-      //     position: null,
-      //   },
+      handleType: 'image',
       isPressDown: false, // 是否按下
       isDrag: false, // 是否拖动
       parentEle: null, // 鼠标抬起时的父元素
       type: null, // 拖拽元素的类型
       typeList: [
         {
-          type: 'mImage',
+          type: 'image',
           text: '图片',
         },
         {
-          type: 'mTextarea',
+          type: 'textarea',
           text: '文本',
         },
         {
-          type: 'mTask',
+          type: 'task',
           text: '任务',
         },
         {
-          type: 'mSignIn',
+          type: 'signIn',
           text: '签到',
         },
       ],
-    //   viewList: [
-    //     {
-    //     	type: 'mImage',
-    //     	width: '100%',
-    //     	height: '300rpx',
-    //     	src: 'https://cdn.uviewui.com/uview/example/fade.jpg'
-    //     },
-    //     {
-    //     	type: 'mTextarea',
-    //     	value: ''
-    //     },
-    //     {
-    //     	type: 'mTask',
-    //     }
-    //   ],
     }
   },
   mounted () {
     this.init()
-    console.log(this.$store.getters.yyuu, '123333')
-    console.log(this.getTodoById, 'ppppp')
   },
   methods: {
     ...mapMutations([
@@ -135,22 +124,19 @@ export default {
       'initDefalutData',
     ]),
     showCurrentConfig (item, index) {
-      if (index !== this.currentData.position) {
-        console.log(item, 'item??????')
-        this.initDefalutData(item)
-      }
+      // if (index !== this.currentData.position) {
+      //   console.log(item, 'item??????')
+      //   this.initDefalutData(item)
+      // }
 
-      this.currentData.data = item
-      this.currentData.position = index
+      // this.currentData.data = item
+      // this.currentData.position = index
 
       const params = {
         ...item,
         position: index,
       }
       this.updateData(params)
-
-      console.log('点击组件', this.$refs)
-      this.$refs.handle.showCurrentConfig(item)
     },
     save () {
       const html = document.getElementsByTagName('html')[0].outerHTML
@@ -211,7 +197,6 @@ export default {
           const target = e.target ? e.target : e.srcElement
           // 获取目标元素的类名
           const className = target.className
-          console.log(className, 'className')
 
           // 判断鼠标按下时的元素
           if (className.includes('al-item')) {
@@ -224,7 +209,6 @@ export default {
             that.parentEle = that.clickEle.parentElement
             that.cloneEle = that.clickEle.cloneNode(true)
             that.cloneEle.addClass = 'al-clone'
-            console.log(that.cloneEle, 'that.cloneEle')
             that.parentEle.append(that.cloneEle)
           }
         })
@@ -281,14 +265,12 @@ export default {
           // 获取目标元素的标签名
           vm.type = that.cloneEle.getAttribute('type')
 
-          console.log(vm.type, '????', target)
           if (['ac-mobile'].includes(className)) {
             // target.append(that.cloneEle)
             that.cloneEle.remove()
 
             // 追加默认配置
             vm.viewList.push(vm.defaultConfig)
-            console.log(vm.viewList, '????')
           }
         }
       }
