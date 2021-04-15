@@ -18,6 +18,7 @@
           @click="showCurrentConfig(item, index)"
           class="component-box"
         >
+          <view class="cb-delete" @click="deleteComponent(index)">删除</view>
           <component ref="mobileView" :value="item" :is="item.type | componentsName('view')" :key="item.type + index + Math.random()"></component>
         </view>
       </view>
@@ -128,6 +129,7 @@ export default {
   methods: {
     ...mapMutations([
       'updateData',
+      'deleteComponent',
     ]),
     showCurrentConfig (item, index) {
       // if (index !== this.currentData.position) {
@@ -358,20 +360,38 @@ export default {
         background-color: pink;
       }
 
-      .component-box:hover {
+      .component-box {
         position: relative;
 
-        &::before {
-          z-index: 6;
-          content: "";
-          top: 50%;
-          // left: 0;
-          width: 100%;
-          height: 0;
-          position: absolute;
-          background-color: red;
-          border-top: 2upx dashed red;
-          transform: translateY(-50%);
+        .cb-delete {
+          display: none;
+        }
+
+        &:hover {
+          &::before {
+            z-index: 6;
+            content: "";
+            top: 50%;
+            // left: 0;
+            width: 100%;
+            height: 0;
+            position: absolute;
+            background-color: red;
+            border-top: 2upx dashed red;
+            transform: translateY(-50%);
+          }
+
+          .cb-delete {
+            z-index: 6;
+            bottom: 40upx;
+            right: 40upx;
+            color: red;
+            display: block;
+            cursor: pointer;
+            position: absolute;
+            border-radius: 60upx;
+            background-color: pink;
+          }
         }
       }
     }
