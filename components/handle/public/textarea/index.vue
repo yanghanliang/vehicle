@@ -48,7 +48,6 @@ export default {
     mixins: [mixin],
     data() {
         return {
-            action: 'http://www.example.com/upload',
             form: {
                 href: '',
                 text: '',

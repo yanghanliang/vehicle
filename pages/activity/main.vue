@@ -16,19 +16,20 @@
           v-for="(item, index) in viewList"
           :key="item.type + index"
           @click="showCurrentConfig(item, index)"
+          class="component-box"
         >
           <component ref="mobileView" :value="item" :is="item.type | componentsName('view')" :key="item.type + index + Math.random()"></component>
         </view>
       </view>
     </view>
     <view class="activity-right">
-      <component :is="currentData.type | componentsName('handle')" :value="currentData"></component>
+      <component :is="handleDara.type | componentsName('handle')" :value="handleDara" key="gg"></component>
     </view>
   </view>
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 // 视图
 import viewTask from '@/components/mobileView/public/task/index'
 import viewImage from '@/components/mobileView/public/image/index'
@@ -54,16 +55,13 @@ export default {
       'currentData',
       'viewList',
     ]),
-    ...mapGetters([
-      'currentDataCopy'
-    ]),
     defaultConfig () {
       const defaultData = {
         image: {
           type: 'image',
           width: '100%',
           height: '300rpx',
-          marginTop: '',
+          marginTop: '10px',
           marginBottom: '',
           src: 'https://cdn.uviewui.com/uview/example/fade.jpg',
         },
@@ -81,6 +79,7 @@ export default {
   },
   filters: {
     componentsName (type, prefix) {
+      console.log(type, 'typetypetypetypetypetype')
       if (type) {
         return prefix + type.slice(0, 1).toLocaleUpperCase() + type.slice(1)
       }
@@ -88,9 +87,17 @@ export default {
       return 'handleImage'
     }
   },
+  watch: {
+    currentData: {
+      deep: true,
+      handler (newVal, oldVal) {
+        this.handleDara = { ...newVal }
+      }
+    }
+  },
   data () {
     return {
-      handleType: 'image',
+      handleDara: {}, // 操作的数据
       isPressDown: false, // 是否按下
       isDrag: false, // 是否拖动
       parentEle: null, // 鼠标抬起时的父元素
@@ -121,12 +128,10 @@ export default {
   methods: {
     ...mapMutations([
       'updateData',
-      'initDefalutData',
     ]),
     showCurrentConfig (item, index) {
       // if (index !== this.currentData.position) {
       //   console.log(item, 'item??????')
-      //   this.initDefalutData(item)
       // }
 
       // this.currentData.data = item
@@ -231,7 +236,7 @@ export default {
           that.end_y = e.clientY + scrollY
 
           // 移动提示线条
-          that.moveTipLine(e)
+          that.moveComponent(e)
 
           // 判断是否需要移动元素
           if (that.isDrag) {
@@ -269,14 +274,24 @@ export default {
             // target.append(that.cloneEle)
             that.cloneEle.remove()
 
+            console.log('**********')
+
             // 追加默认配置
-            vm.viewList.push(vm.defaultConfig)
+            // vm.viewList.push(vm.defaultConfig)
+
+            // vm.currentData.data = { ...vm.defaultConfig }
+            // vm.currentData.position = vm.viewList.length
+            // 更新当前组件
+            vm.updateData({
+              ...vm.defaultConfig,
+              position: vm.viewList.length,
+            })
           }
         }
       }
 
-      // 移动提示线条
-      My.prototype.moveTipLine = function () {
+      // 移动组件
+      My.prototype.moveComponent = function () {
         if (!this.isDrag) {
           return false
         }
@@ -341,6 +356,23 @@ export default {
 
       textarea {
         background-color: pink;
+      }
+
+      .component-box:hover {
+        position: relative;
+
+        &::before {
+          z-index: 6;
+          content: "";
+          top: 50%;
+          // left: 0;
+          width: 100%;
+          height: 0;
+          position: absolute;
+          background-color: red;
+          border-top: 2upx dashed red;
+          transform: translateY(-50%);
+        }
       }
     }
   }

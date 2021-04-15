@@ -9,31 +9,33 @@ export default {
 			}
 		}
 	},
+	computed: {
+		...mapState([
+			'currentData'
+		])
+	},
     methods: {
         ...mapMutations([
-            'updateData',
+            'updateView',
         ]),
-        init(form) {
-            this.form = form
-			console.log(form, 'form')
-        }
+        // init(form) {
+        //     this.form = form
+		// 	console.log(form, 'form')
+        // },
     },
     watch: {
 		value: {
 			immediate: true,
 			handler (newVal) {
-				this.form = Object.assign(this.form, newVal)
-				console.log(newVal, '更新handleData')
+				this.form = { ...newVal }
 			}
 		},
         form: {
             deep: true,
             handler: function(newVal) {
-                this.updateData({
+                this.updateView({
                     ...newVal,
-                    position: this.currentData.position,
                 })
-                console.log(newVal, 'handle改变时更新view')
             }
         }
     },

@@ -5,8 +5,8 @@ Vue.config.productionTip = false;
 
 App.mpType = 'app';
 
-// 此处为演示Vue.prototype使用，非uView的功能部分
-Vue.prototype.vuePrototype = '枣红';
+// 引入全局公共样式
+import '@/static/common/scss/public.scss'
 
 // 引入全局uView
 import uView from 'uview-ui';
