@@ -31,7 +31,29 @@ const store = new Vuex.Store({
 		// 初始化默认数据
 		initDefalutData (state, item) {
 			console.log('初始化默认数据')
-			state.defalutData = { ...item }
+			// 这里看看能不能通过事件触发 $emit $on  TODO
+			const test = {
+				mImage: {
+					src: '',
+					marginTop: '',
+					marginBottom: '',
+				},
+				mTextarea: {
+					href: '',
+					text: '',
+					color: '',
+					fontSize: '',
+					marginTop: '',
+					fontWeight: '',
+					marginBottom: '',
+				}
+			}
+
+			state.defalutData = test[item.type]
+
+			setTimeout(() => {
+				state.defalutData = { ...item }
+			});
 		},
 	},
 	getters: {

@@ -136,6 +136,7 @@ export default {
     ]),
     showCurrentConfig (item, index) {
       if (index !== this.currentData.position) {
+        console.log(item, 'item??????')
         this.initDefalutData(item)
       }
 
