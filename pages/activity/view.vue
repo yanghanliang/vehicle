@@ -63,15 +63,19 @@ export default {
 
 <style lang="scss" scoped>
 .ac-mobile {
-  width: 900upx;
+  width: 700upx;
   margin: 0 auto;
   overflow: auto;
+	padding: 140upx 40upx;
   position: relative;
-  height: 1000upx;
-  border: 1upx solid #666;
+  height: 1500upx;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url("../../static/images/activity/iPhoneX_model.png");
 
   @media screen and (max-width: 600px) {
     width: auto;
+		padding: 0;
   }
 
   &::-webkit-scrollbar {
@@ -92,6 +96,7 @@ export default {
   }
 
   .component-box {
+		cursor: default;
     position: relative;
 
     .cb-delete {

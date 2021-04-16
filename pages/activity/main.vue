@@ -1,6 +1,5 @@
 <template>
   <view class="activity">
-    <view @click="test">保存</view>
     <view class="activity-left">
       <view
         v-for="(item, index) in typeList"
@@ -15,7 +14,9 @@
       <m-view></m-view>
     </view>
     <view class="activity-right">
+      <handle-base />
       <component :is="handleDara.type | componentsName('handle')" :value="handleDara" key="gg"></component>
+      <u-button style="margin-top: 10px" @click="test">更新图片</u-button>
     </view>
   </view>
 </template>
@@ -26,6 +27,7 @@ import { mapState, mapMutations } from 'vuex'
 import mView from '@/pages/activity/view'
 // 操作
 import handleTask from '@/components/handle/public/task/index'
+import handleBase from '@/components/handle/public/base/index'
 import handleImage from '@/components/handle/public/image/index'
 import handleTextarea from '@/components/handle/public/textarea/index'
 
@@ -33,6 +35,7 @@ export default {
   name: 'activity',
   components: {
     mView,
+    handleBase,
     handleTask,
     handleImage,
     handleTextarea
@@ -345,13 +348,13 @@ export default {
   }
 
   .activity-left {
-    width: 150upx;
+    width: 200upx;
     text-align: center;
     background-color: pink;
 
     .al-item,
     .al-clone {
-      width: 150upx;
+      width: 200upx;
       height: 60upx;
       line-height: 60upx;
       border-bottom: 1upx solid red;
@@ -375,70 +378,70 @@ export default {
   .activity-content {
     flex: 1;
 
-    .ac-mobile {
-      width: 900upx;
-      margin: 0 auto;
-      overflow: auto;
-      position: relative;
-      height: 1000upx;
-      border: 1upx solid #666;
+    // .ac-mobile {
+    //   width: 900upx;
+    //   margin: 0 auto;
+    //   overflow: auto;
+    //   position: relative;
+    //   height: 1000upx;
+    //   border: 1upx solid #666;
 
-      &::-webkit-scrollbar {
-        width: 6px !important;
-        height: 8px !important;
-        display: block !important;
-      }
+    //   &::-webkit-scrollbar {
+    //     width: 6px !important;
+    //     height: 8px !important;
+    //     display: block !important;
+    //   }
 
-      &::-webkit-scrollbar-thumb {
-        border-radius: 5px !important;
-        background-color: #e2e2e287 !important;
-        -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-      }
+    //   &::-webkit-scrollbar-thumb {
+    //     border-radius: 5px !important;
+    //     background-color: #e2e2e287 !important;
+    //     -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    //     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    //   }
 
-      &::-webkit-scrollbar-thumb:hover {
-        background-color: #ccc !important;
-      }
+    //   &::-webkit-scrollbar-thumb:hover {
+    //     background-color: #ccc !important;
+    //   }
 
-      .component-box {
-        position: relative;
+    //   .component-box {
+    //     position: relative;
 
-        .cb-delete {
-          display: none;
-        }
+    //     .cb-delete {
+    //       display: none;
+    //     }
 
-        &:hover {
-          &::before {
-            z-index: 6;
-            content: "";
-            top: 50%;
-            // left: 0;
-            width: 100%;
-            height: 0;
-            position: absolute;
-            background-color: red;
-            border-top: 2upx dashed red;
-            transform: translateY(-50%);
-          }
+    //     &:hover {
+    //       &::before {
+    //         z-index: 6;
+    //         content: "";
+    //         top: 50%;
+    //         // left: 0;
+    //         width: 100%;
+    //         height: 0;
+    //         position: absolute;
+    //         background-color: red;
+    //         border-top: 2upx dashed red;
+    //         transform: translateY(-50%);
+    //       }
 
-          .cb-delete {
-            z-index: 6;
-            bottom: 40upx;
-            right: 40upx;
-            color: red;
-            display: block;
-            cursor: pointer;
-            position: absolute;
-            border-radius: 60upx;
-            background-color: pink;
-          }
-        }
-      }
+    //       .cb-delete {
+    //         z-index: 6;
+    //         bottom: 40upx;
+    //         right: 40upx;
+    //         color: red;
+    //         display: block;
+    //         cursor: pointer;
+    //         position: absolute;
+    //         border-radius: 60upx;
+    //         background-color: pink;
+    //       }
+    //     }
+    //   }
 
-      textarea {
-        background-color: pink;
-      }
-    }
+    //   textarea {
+    //     background-color: pink;
+    //   }
+    // }
   }
 }
 </style>
