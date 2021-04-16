@@ -61,7 +61,8 @@ export default {
     },
     methods: {
         submit() {
-            this.form.src = this.$refs.uUpload.lists[0].url
+            // this.form.src = this.$refs.uUpload.lists[0].url
+            this.form.src = 'http://127.0.0.1:54414/5f11295729666ccee93aec034b7e1bc9.jpeg'
             // this.updateView({ src: this.form.src })
         },
     },

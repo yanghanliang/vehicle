@@ -44,8 +44,7 @@ const store = new Vuex.Store({
 			// 更新当前数据
 			state.viewList[params.position] = { ...state.currentData }
 			// 更新视图
-			// state.viewList = [...state.viewList]
-
+			state.viewList = [...state.viewList]
 			// console.log(state.viewList, 'state.viewList-更新视图')
 		},
 		// 只更新视图
@@ -60,9 +59,16 @@ const store = new Vuex.Store({
 				state.viewList.splice(index, 1)
 				state.viewList = [...state.viewList]
 			})
+		},
+		// 更新viewList
+		updateViewList (state, viewList) {
+			state.viewList = [...viewList]
 		}
 	},
 	getters: {
+		viewListCopy(state) {
+			return state.viewList
+		}
 	}
 })
 

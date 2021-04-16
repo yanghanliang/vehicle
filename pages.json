@@ -5,6 +5,9 @@
 	"pages": [
 		{
 			"path": "pages/activity/main"
+		},
+		{
+			"path": "pages/activity/view"
 		}
 	],
 	"preloadRule": {

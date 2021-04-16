@@ -1,5 +1,6 @@
 <template>
   <view class="activity">
+    <view @click="test">保存</view>
     <view class="activity-left">
       <view
         v-for="(item, index) in typeList"
@@ -11,17 +12,7 @@
       </view>
     </view>
     <view class="activity-content">
-      <view class="ac-mobile">
-        <view
-          v-for="(item, index) in viewList"
-          :key="item.type + index"
-          @click="showCurrentConfig(item, index)"
-          class="component-box"
-        >
-          <view class="cb-delete" @click="deleteComponent(index)">删除</view>
-          <component ref="mobileView" :value="item" :is="item.type | componentsName('view')" :key="item.type + index + Math.random()"></component>
-        </view>
-      </view>
+      <m-view></m-view>
     </view>
     <view class="activity-right">
       <component :is="handleDara.type | componentsName('handle')" :value="handleDara" key="gg"></component>
@@ -32,9 +23,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 // 视图
-import viewTask from '@/components/mobileView/public/task/index'
-import viewImage from '@/components/mobileView/public/image/index'
-import viewTextarea from '@/components/mobileView/public/textarea/index'
+import mView from '@/pages/activity/view'
 // 操作
 import handleTask from '@/components/handle/public/task/index'
 import handleImage from '@/components/handle/public/image/index'
@@ -43,18 +32,15 @@ import handleTextarea from '@/components/handle/public/textarea/index'
 export default {
   name: 'activity',
   components: {
-    viewTask,
-    viewImage,
-    viewTextarea,
+    mView,
     handleTask,
     handleImage,
     handleTextarea
   },
   computed: {
     ...mapState([
-      'vuex_demo',
-      'currentData',
       'viewList',
+      'currentData',
     ]),
     defaultConfig () {
       const defaultData = {
@@ -94,7 +80,7 @@ export default {
       handler (newVal, oldVal) {
         this.handleDara = { ...newVal }
       }
-    }
+    },
   },
   data () {
     return {
@@ -130,8 +116,10 @@ export default {
   methods: {
     ...mapMutations([
       'updateData',
-      'deleteComponent',
     ]),
+    test () {
+      localStorage.setItem('viewList', JSON.stringify(this.viewList))
+    },
     getComponentInfo () {
       const arr = []
       const componentBox = document.querySelectorAll('.component-box')
@@ -148,31 +136,6 @@ export default {
       this.componentInfo = arr
 
       console.log(arr, 'arr????')
-    },
-    showCurrentConfig (item, index) {
-      const params = {
-        ...item,
-        position: index,
-      }
-      this.updateData(params)
-    },
-    save () {
-      const html = document.getElementsByTagName('html')[0].outerHTML
-      const formdata = new FormData()
-      formdata.append('file', html)
-
-      axios({
-        method: 'post',
-        url: 'http://localhost:3001/testData',
-        data: formdata, // 必须是 FormData 对象
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
-        .then(function (response) {
-          console.log(response)
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
     },
     init () {
       const vm = this
