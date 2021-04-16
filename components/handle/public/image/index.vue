@@ -1,6 +1,5 @@
 <template>
     <u-form class="handle-image" :model="form" ref="uForm" :label-width="180">
-        {{ JSON.stringify(form) }}form
         <u-form-item label="更换图片">
             <u-input v-model="form.src" />
             <u-button type="primary">选择文件</u-button>

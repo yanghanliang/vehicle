@@ -150,13 +150,6 @@ export default {
       console.log(arr, 'arr????')
     },
     showCurrentConfig (item, index) {
-      // if (index !== this.currentData.position) {
-      //   console.log(item, 'item??????')
-      // }
-
-      // this.currentData.data = item
-      // this.currentData.position = index
-
       const params = {
         ...item,
         position: index,
@@ -233,7 +226,6 @@ export default {
             // 克隆需要的元素并追加到父元素中
             that.parentEle = that.clickEle.parentElement
             that.cloneEle = that.clickEle.cloneNode(true)
-            that.cloneEle.addClass = 'al-clone'
             that.parentEle.append(that.cloneEle)
           }
         })
@@ -304,7 +296,7 @@ export default {
           }
 
           // 放在组件上面
-          if (that.findParentEle(target)) {
+          if (that.findParentEle(target, 'activity-content')) {
             vm.getComponentInfo()
 
             const length = vm.componentInfo.length
@@ -352,22 +344,27 @@ export default {
         this.cloneEle.style.position = 'absolute'
       }
 
-      // 查找父元素
-      My.prototype.findParentEle = function (ele) {
+      /**
+       * 查找父元素
+       * @param {object} ele  - DOM 对象
+       * @param {string} className - 盒子类名
+       * @return {object} parentEle  - 返回父级 DOM 对象或者 false
+       */
+      My.prototype.findParentEle = function (ele, className) {
         const parentEle = ele.parentElement
-        let className = ''
+        let parentClassName = ''
 
         if (!parentEle) {
           return false
         }
 
-        className = parentEle.className
+        parentClassName = parentEle.className
 
-        if (![className].includes('activity-content')) {
-          return this.findParentEle(ele.parentElement)
+        if (![parentClassName].includes(className)) {
+          return this.findParentEle(parentEle, className)
         }
 
-        return true
+        return parentEle
       }
 
       new My()
@@ -440,10 +437,6 @@ export default {
         background-color: #ccc !important;
       }
 
-      textarea {
-        background-color: pink;
-      }
-
       .component-box {
         position: relative;
 
@@ -477,6 +470,10 @@ export default {
             background-color: pink;
           }
         }
+      }
+
+      textarea {
+        background-color: pink;
       }
     }
   }

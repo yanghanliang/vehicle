@@ -5,7 +5,6 @@
         ref="uForm"
         :label-width="180"
     >
-	{{ JSON.stringify(value) }}??
         <u-form-item label="编辑文本内容">
             <u-input
                 v-model="form.text"
