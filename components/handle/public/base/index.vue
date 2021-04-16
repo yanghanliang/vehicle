@@ -1,10 +1,10 @@
 <template>
-  <u-form class="handle-image" :model="form" ref="uForm" :label-width="180">
+  <u-form class="handle-image" :model="value" ref="uForm" :label-width="180">
     <u-form-item label="设置背景颜色">
-      <u-input v-model="form.marginTop" />
+      <u-input v-model="value.backgroundColor" />
     </u-form-item>
     <u-form-item label="设置背景图">
-      <u-input v-model="form.src" />
+      <u-input v-model="value.backgroundImage" />
       <u-button type="primary">选择文件</u-button>
     </u-form-item>
     <u-form-item label="">
@@ -26,14 +26,21 @@
 </template>
 
 <script>
-import mixin from '@/components/handle/mixin.js'
+import { mapMutations } from 'vuex'
+import mixin from '@/components/mobileView/mixin.js'
 
 export default {
   mixins: [mixin],
+  watch: {
+    style(newVal) {
+      console.log(newVal, 'newVal')
+      this.updateBaseStyle(newVal)
+    }
+  },
   data() {
     return {
       action: 'http://www.example.com/upload',
-      form: {
+      value: {
 				type: 'base',
 				testPosition: '',
 				backgroundColor: '',
@@ -53,11 +60,14 @@ export default {
     }
   },
   methods: {
+    ...mapMutations([
+      'updateBaseStyle'
+    ]),
     submit() {
-      // this.form.src = this.$refs.uUpload.lists[0].url
-      this.form.src =
+      // this.value.src = this.$refs.uUpload.lists[0].url
+      this.value.src =
         'http://127.0.0.1:54414/5f11295729666ccee93aec034b7e1bc9.jpeg'
-      // this.updateView({ src: this.form.src })
+      // this.updateView({ src: this.value.src })
     },
   },
 }

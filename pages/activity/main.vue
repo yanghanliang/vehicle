@@ -11,12 +11,12 @@
       </view>
     </view>
     <view class="activity-content">
-      <m-view></m-view>
+      <view class="mobile-view">
+        <m-view></m-view>
+      </view>
     </view>
     <view class="activity-right">
-      <handle-base />
-      <component :is="handleDara.type | componentsName('handle')" :value="handleDara" key="gg"></component>
-      <u-button style="margin-top: 10px" @click="test">更新图片</u-button>
+      <m-handle />
     </view>
   </view>
 </template>
@@ -26,24 +26,17 @@ import { mapState, mapMutations } from 'vuex'
 // 视图
 import mView from '@/pages/activity/view'
 // 操作
-import handleTask from '@/components/handle/public/task/index'
-import handleBase from '@/components/handle/public/base/index'
-import handleImage from '@/components/handle/public/image/index'
-import handleTextarea from '@/components/handle/public/textarea/index'
+import mHandle from '@/components/handle/index'
 
 export default {
   name: 'activity',
   components: {
     mView,
-    handleBase,
-    handleTask,
-    handleImage,
-    handleTextarea
+    mHandle
   },
   computed: {
     ...mapState([
-      'viewList',
-      'currentData',
+      'baseStyle',
     ]),
     defaultConfig () {
       const defaultData = {
@@ -67,27 +60,8 @@ export default {
       return defaultData[this.type]
     },
   },
-  filters: {
-    componentsName (type, prefix) {
-      console.log(type, 'typetypetypetypetypetype')
-      if (type) {
-        return prefix + type.slice(0, 1).toLocaleUpperCase() + type.slice(1)
-      }
-
-      return 'handleImage'
-    }
-  },
-  watch: {
-    currentData: {
-      deep: true,
-      handler (newVal, oldVal) {
-        this.handleDara = { ...newVal }
-      }
-    },
-  },
   data () {
     return {
-      handleDara: {}, // 操作的数据
       isPressDown: false, // 是否按下
       isDrag: false, // 是否拖动
       parentEle: null, // 鼠标抬起时的父元素
@@ -120,9 +94,6 @@ export default {
     ...mapMutations([
       'updateData',
     ]),
-    test () {
-      localStorage.setItem('viewList', JSON.stringify(this.viewList))
-    },
     getComponentInfo () {
       const arr = []
       const componentBox = document.querySelectorAll('.component-box')
@@ -172,9 +143,6 @@ export default {
         const that = this
 
         this.box.addEventListener('mousedown', function (event) {
-          // 修改按下的状态
-          that.isPressDown = true
-
           // 利用传参兼容火狐
           const e = window.event || event
           // 获取目标元素
@@ -186,6 +154,8 @@ export default {
           if (className.includes('al-item')) {
             // 内容元素
             that.isDrag = true
+            // 修改按下的状态
+            that.isPressDown = true
             // 获取开始元素
             that.clickEle = target
 
@@ -213,7 +183,7 @@ export default {
           that.end_x = e.clientX + scrollX
           that.end_y = e.clientY + scrollY
 
-          // 移动提示线条
+          // 移动组件
           that.moveComponent(e)
 
           // 判断是否需要移动元素
@@ -226,7 +196,6 @@ export default {
               that.parentEle.offsetLeft -
               that.clickEleInfo.width / 2 +
               'px'
-            that.cloneEle.style.zIndex = -1
           }
         }
       }
@@ -235,9 +204,11 @@ export default {
       My.prototype.mouseup = function () {
         const that = this
         window.onmouseup = function (event) {
+          console.log(that.isDrag, 'that.isDrag')
           if (!that.isDrag) {
             return false
           }
+          console.log('pppppppppppppppppppppppppppppppppp')
 
           // 修改按下的状态
           that.isPressDown = false
@@ -308,6 +279,7 @@ export default {
         this.cloneEle.style.top = this.end_y
         this.cloneEle.style.left = this.end_x
         this.cloneEle.style.position = 'absolute'
+        this.cloneEle.style.zIndex = '-1'
       }
 
       /**
@@ -352,8 +324,7 @@ export default {
     text-align: center;
     background-color: pink;
 
-    .al-item,
-    .al-clone {
+    .al-item {
       width: 200upx;
       height: 60upx;
       line-height: 60upx;
@@ -377,6 +348,19 @@ export default {
 
   .activity-content {
     flex: 1;
+    overflow: hidden;
+
+    .mobile-view {
+      width: 700upx;
+      margin: 0 auto;
+      overflow: auto;
+      height: 1380upx;
+      position: relative;
+      padding: 140upx 26upx 0 24upx;
+      background-repeat: no-repeat;
+      background-size: 700upx 1380upx;
+      background-image: url("../../static/images/activity/iPhoneX_model.png");
+    }
 
     // .ac-mobile {
     //   width: 900upx;

@@ -25,6 +25,7 @@ const store = new Vuex.Store({
 			//   type: 'task',
 			// },
 		],
+		baseStyle: ''
 	},
 	mutations: {
 		// 更新视图及当前数据
@@ -60,9 +61,13 @@ const store = new Vuex.Store({
 				state.viewList = [...state.viewList]
 			})
 		},
-		// 更新viewList
+		// 更新 viewList
 		updateViewList (state, viewList) {
 			state.viewList = [...viewList]
+		},
+		// 更新 公共样式
+		updateBaseStyle (state, style) {
+			state.baseStyle = style
 		}
 	},
 	getters: {

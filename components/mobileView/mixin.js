@@ -5,6 +5,8 @@ const ATTRIBUTE = [
   'fontWeight',
   'marginTop',
   'marginBottom',
+  'backgroundColor',
+  'backgroundImage',
 ]
 
 export default {

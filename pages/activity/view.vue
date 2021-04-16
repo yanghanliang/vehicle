@@ -1,5 +1,5 @@
 <template>
-  <view class="ac-mobile">
+  <view class="ac-mobile" :style="baseStyle">
     <view
       v-for="(item, index) in viewList"
       :key="item.type + index"
@@ -30,7 +30,9 @@ export default {
     viewTextarea,
   },
   computed: {
-    ...mapState(['viewList']),
+    ...mapState([
+      'viewList',
+    ]),
   },
   filters: {
     componentsName (type, prefix) {
@@ -63,20 +65,9 @@ export default {
 
 <style lang="scss" scoped>
 .ac-mobile {
-  width: 700upx;
-  margin: 0 auto;
-  overflow: auto;
-	padding: 140upx 40upx;
-  position: relative;
-  height: 1500upx;
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-image: url("../../static/images/activity/iPhoneX_model.png");
-
-  @media screen and (max-width: 600px) {
-    width: auto;
-		padding: 0;
-  }
+  min-height: 100%;
+  border-bottom-left-radius: 60upx;
+  border-bottom-right-radius: 60upx;
 
   &::-webkit-scrollbar {
     width: 6px !important;
