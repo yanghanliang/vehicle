@@ -37,12 +37,16 @@ const store = new Vuex.Store({
 				state.currentData[key] = params[key]
 			}
 
+			if (params.index) {
+				state.viewList.splice(params.index, 0, { ...state.currentData })
+				return false
+			}
 			// 更新当前数据
 			state.viewList[params.position] = { ...state.currentData }
-			// // 更新视图
+			// 更新视图
 			// state.viewList = [...state.viewList]
 
-			console.log(state.viewList, 'state.viewList-更新视图')
+			// console.log(state.viewList, 'state.viewList-更新视图')
 		},
 		// 只更新视图
 		updateView (state, params) {

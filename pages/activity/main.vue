@@ -103,6 +103,7 @@ export default {
       isDrag: false, // 是否拖动
       parentEle: null, // 鼠标抬起时的父元素
       type: null, // 拖拽元素的类型
+      componentInfo: [], // 组件信息
       typeList: [
         {
           type: 'image',
@@ -131,6 +132,23 @@ export default {
       'updateData',
       'deleteComponent',
     ]),
+    getComponentInfo () {
+      const arr = []
+      const componentBox = document.querySelectorAll('.component-box')
+      componentBox.forEach((item, index) => {
+        const itemInfo = item.getBoundingClientRect()
+        arr.push({
+          index: index,
+          top: itemInfo.y,
+          bottom: itemInfo.y + itemInfo.height,
+          middle: itemInfo.y + itemInfo.height / 2,
+        })
+      })
+
+      this.componentInfo = arr
+
+      console.log(arr, 'arr????')
+    },
     showCurrentConfig (item, index) {
       // if (index !== this.currentData.position) {
       //   console.log(item, 'item??????')
@@ -259,6 +277,10 @@ export default {
       My.prototype.mouseup = function () {
         const that = this
         window.onmouseup = function (event) {
+          if (!that.isDrag) {
+            return false
+          }
+
           // 修改按下的状态
           that.isPressDown = false
           that.isDrag = false
@@ -272,16 +294,49 @@ export default {
           // 获取目标元素的标签名
           vm.type = that.cloneEle.getAttribute('type')
 
+          // 放入手机空白处
           if (['ac-mobile'].includes(className)) {
-            // target.append(that.cloneEle)
-            that.cloneEle.remove()
-
             // 更新当前组件
             vm.updateData({
               ...vm.defaultConfig,
               position: vm.viewList.length,
             })
           }
+
+          // 放在组件上面
+          if (that.findParentEle(target)) {
+            vm.getComponentInfo()
+
+            const length = vm.componentInfo.length
+            let position = ''
+
+            for (let i = 0; i < length; i++) {
+              const item = vm.componentInfo[i]
+              if (item.top < that.end_y && item.bottom > that.end_y) {
+                console.log(item.index, 'index')
+                if (that.end_y > item.middle) {
+                  console.log('下面')
+                  position = i + 1
+                } else {
+                  console.log('上面')
+                  position = i
+                }
+
+                break
+              }
+            }
+
+            // 更新当前组件
+            if (position === 0 || position) {
+              vm.updateData({
+                ...vm.defaultConfig,
+                position: vm.viewList.length,
+                index: String(position),
+              })
+            }
+          }
+
+          that.cloneEle.remove()
         }
       }
 
@@ -295,6 +350,24 @@ export default {
         this.cloneEle.style.top = this.end_y
         this.cloneEle.style.left = this.end_x
         this.cloneEle.style.position = 'absolute'
+      }
+
+      // 查找父元素
+      My.prototype.findParentEle = function (ele) {
+        const parentEle = ele.parentElement
+        let className = ''
+
+        if (!parentEle) {
+          return false
+        }
+
+        className = parentEle.className
+
+        if (![className].includes('activity-content')) {
+          return this.findParentEle(ele.parentElement)
+        }
+
+        return true
       }
 
       new My()
@@ -344,10 +417,28 @@ export default {
 
     .ac-mobile {
       width: 900upx;
-      min-height: 1000upx;
       margin: 0 auto;
+      overflow: auto;
       position: relative;
+      height: 1000upx;
       border: 1upx solid #666;
+
+      &::-webkit-scrollbar {
+        width: 6px !important;
+        height: 8px !important;
+        display: block !important;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 5px !important;
+        background-color: #e2e2e287 !important;
+        -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: #ccc !important;
+      }
 
       textarea {
         background-color: pink;
