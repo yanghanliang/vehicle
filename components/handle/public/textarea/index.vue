@@ -36,7 +36,6 @@
         <u-form-item label="模块下间距"
             ><u-input v-model="form.marginBottom"
         /></u-form-item>
-        <u-button @click="submit">提交</u-button>
     </u-form>
 </template>
 
@@ -68,9 +67,6 @@ export default {
             ],
             radio: '',
         }
-    },
-    methods: {
-        submit() {},
     },
 }
 </script>

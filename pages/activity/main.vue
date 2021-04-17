@@ -11,8 +11,10 @@
       </view>
     </view>
     <view class="activity-content">
-      <view class="mobile-view">
-        <m-view></m-view>
+      <view class="ac-box">
+        <view class="mobile-view">
+          <m-view></m-view>
+        </view>
       </view>
     </view>
     <view class="activity-right">
@@ -350,16 +352,21 @@ export default {
     flex: 1;
     overflow: hidden;
 
-    .mobile-view {
+    .ac-box {
       width: 700upx;
       margin: 0 auto;
-      overflow: auto;
       height: 1380upx;
-      position: relative;
+      overflow: hidden;
       padding: 140upx 26upx 0 24upx;
       background-repeat: no-repeat;
       background-size: 700upx 1380upx;
       background-image: url("../../static/images/activity/iPhoneX_model.png");
+    }
+
+    .mobile-view {
+      overflow: auto;
+      height: 1160upx;
+      position: relative;
     }
 
     // .ac-mobile {

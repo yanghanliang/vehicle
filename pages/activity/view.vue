@@ -66,8 +66,6 @@ export default {
 <style lang="scss" scoped>
 .ac-mobile {
   min-height: 100%;
-  border-bottom-left-radius: 60upx;
-  border-bottom-right-radius: 60upx;
 
   &::-webkit-scrollbar {
     width: 6px !important;

@@ -115,3 +115,9 @@ Vue.use(uView);
 
 请通过[快速上手](https://uviewui.com/components/quickstart.html)了解更详细的内容
 
+
+view
+
+text
+
+

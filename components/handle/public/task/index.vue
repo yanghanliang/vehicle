@@ -16,7 +16,6 @@
         </u-form-item>
         <u-form-item label="模块上间距"><u-input v-model="form.name" /></u-form-item>
         <u-form-item label="模块下间距"><u-input v-model="form.name" /></u-form-item>
-        <u-button @click="submit">提交</u-button>
     </u-form>
 </template>
 
