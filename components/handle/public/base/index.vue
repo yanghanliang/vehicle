@@ -26,16 +26,35 @@
 </template>
 
 <script>
+// 它是独立的不用 mixin
 import { mapMutations } from 'vuex'
-import mixin from '@/components/mobileView/mixin.js'
+import ATTRIBUTE from '@/components/mobileView/style.js'
 
 export default {
-  mixins: [mixin],
   watch: {
     style(newVal) {
       console.log(newVal, 'newVal')
       this.updateBaseStyle(newVal)
     }
+  },
+  computed: {
+    // 公共的方法
+    style() {
+      let temp = ''
+
+      for (let key in this.value) {
+        if (ATTRIBUTE.includes(key) && this.value[key]) {
+          temp +=
+            key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase() +
+            ': ' +
+            this.value[key] +
+            '; '
+        }
+      }
+
+      console.log(temp, 'style')
+      return temp
+    },
   },
   data() {
     return {

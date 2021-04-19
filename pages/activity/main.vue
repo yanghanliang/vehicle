@@ -57,6 +57,100 @@ export default {
         task: {
           type: 'task',
         },
+        layout: {
+          type: 'layout',
+          display: 'flex',
+          flexDirection: 'column',
+          children: [
+            {
+              type: 'text',
+              text: 'test',
+              display: 'block',
+            },
+            {
+              type: 'view',
+              layout: '0', // 布局，默认值： 左右
+              display: 'flex',
+              children: [
+                {
+                  src: 'https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png',
+                  type: 'image',
+                  width: '70px',
+                  height: '70px',
+                  marginTop: '5px'
+                },
+                {
+                  type: 'view',
+                  flex: '1',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  children: [
+                    {
+                      type: 'view',
+                      layout: 0, // 布局，默认值： 左右
+                      display: 'flex',
+                      children: [
+                        {
+                          src: 'https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png',
+                          type: 'image',
+                          width: '50px',
+                          height: '30px',
+                        },
+                        {
+                          type: 'text',
+                          flex: '1',
+                          text: '可视角度福克斯的福克斯的福克斯的福克斯的'
+                        }
+                      ]
+                    },
+                    {
+                      type: 'view',
+                      layout: '0', // 布局，默认值： 左右
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      children: [
+                        {
+                          type: 'view',
+                          layout: 1,
+                          flex: 1,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          children: [
+                            {
+                              type: 'text',
+                              text: 'abc'
+                            },
+                            {
+                              type: 'text',
+                              text: '123'
+                            }
+                          ]
+                        },
+                        {
+                          type: 'view',
+                          layout: 1,
+                          flex: 1,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          children: [
+                            {
+                              type: 'text',
+                              text: 'abc'
+                            },
+                            {
+                              type: 'text',
+                              text: '123'
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       }
 
       return defaultData[this.type]
@@ -85,6 +179,10 @@ export default {
         {
           type: 'signIn',
           text: '签到',
+        },
+        {
+          type: 'layout',
+          text: '布局',
         },
       ],
     }
@@ -227,6 +325,7 @@ export default {
 
           // 放入手机空白处
           if (['ac-mobile'].includes(className)) {
+            console.log('aaaaaaaaaa')
             // 更新当前组件
             vm.updateData({
               ...vm.defaultConfig,
@@ -236,6 +335,7 @@ export default {
 
           // 放在组件上面
           if (that.findParentEle(target, 'activity-content')) {
+            console.log('bbbbbbbbb')
             vm.getComponentInfo()
 
             const length = vm.componentInfo.length

@@ -22,17 +22,18 @@ import { mapState, mapMutations } from 'vuex'
 import viewTask from '@/components/mobileView/public/task/index'
 import viewImage from '@/components/mobileView/public/image/index'
 import viewTextarea from '@/components/mobileView/public/textarea/index'
+import viewLayout from '@/components/mobileView/layout'
 
 export default {
   components: {
     viewTask,
     viewImage,
     viewTextarea,
+
+    viewLayout,
   },
   computed: {
-    ...mapState([
-      'viewList',
-    ]),
+    ...mapState(['viewList']),
   },
   filters: {
     componentsName (type, prefix) {
@@ -54,10 +55,46 @@ export default {
     },
   },
   created () {
-    const viewList = localStorage.getItem('viewList')
-    console.log(viewList, 'viewList')
+    let viewList = ''
+    // #ifdef H5
+    viewList = localStorage.getItem('viewList')
+    console.log('H5')
+    // #endif
+
+    // #ifndef H5
+    console.log('除了H5')
+    // viewList = uni.getStorageSync('viewList')
+    viewList = [
+      {
+        type: 'image',
+        width: '100%',
+        height: '300rpx',
+        marginTop: '',
+        marginBottom: '',
+        src: 'https://cdn.uviewui.com/uview/example/fade.jpg',
+        position: 0,
+      },
+      {
+        type: 'image',
+        width: '100%',
+        height: '300rpx',
+        marginTop: '',
+        marginBottom: '',
+        src: 'http://127.0.0.1:54414/5f11295729666ccee93aec034b7e1bc9.jpeg',
+        position: 1,
+      },
+      { type: 'textarea', text: '心朝大海，春暖花开', position: 2, index: '2' },
+    ]
+    // #endif
+
     if (viewList) {
+      // #ifdef H5
       this.updateViewList(JSON.parse(viewList))
+      // #endif
+
+      // #ifndef H5
+      this.updateViewList(viewList)
+      // #endif
     }
   },
 }
@@ -85,7 +122,7 @@ export default {
   }
 
   .component-box {
-		cursor: default;
+    cursor: default;
     position: relative;
 
     .cb-delete {

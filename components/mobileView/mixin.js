@@ -1,15 +1,19 @@
-const ATTRIBUTE = [
-  'text',
-  'color',
-  'fontSize',
-  'fontWeight',
-  'marginTop',
-  'marginBottom',
-  'backgroundColor',
-  'backgroundImage',
-]
+import ATTRIBUTE from '@/components/mobileView/style.js'
 
 export default {
+  props: {
+    // value 参数名不能随意更改
+    value: {
+      type: Object,
+      default: function () {
+        return {
+          width: '100%',
+          height: '300rpx',
+          src: 'https://cdn.uviewui.com/uview/example/fade.jpg',
+        }
+      },
+    },
+  },
   computed: {
     style() {
       let temp = ''
@@ -29,8 +33,8 @@ export default {
     },
   },
   methods: {
-    init() {
-      this.value = {}
-    },
+    // init() {
+    //   this.value = {}
+    // },
   },
 }

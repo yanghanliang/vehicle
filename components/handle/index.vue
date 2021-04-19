@@ -13,12 +13,16 @@ import handleBase from '@/components/handle/public/base/index'
 import handleImage from '@/components/handle/public/image/index'
 import handleTextarea from '@/components/handle/public/textarea/index'
 
+import handleLayout from '@/components/handle/public/layout/index'
+
 export default {
   components: {
     handleBase,
     handleTask,
     handleImage,
-    handleTextarea
+    handleTextarea,
+
+    handleLayout,
   },
   computed: {
     ...mapState([

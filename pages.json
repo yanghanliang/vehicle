@@ -4,10 +4,10 @@
 	},
 	"pages": [
 		{
-			"path": "pages/activity/main"
+			"path": "pages/activity/view"
 		},
 		{
-			"path": "pages/activity/view"
+			"path": "pages/activity/main"
 		}
 	],
 	"preloadRule": {

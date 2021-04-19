@@ -115,8 +115,33 @@ Vue.use(uView);
 
 请通过[快速上手](https://uviewui.com/components/quickstart.html)了解更详细的内容
 
+---
 
-view
+##### 页面配置
+
+
+view   分为可循环 || 不循环
+view   分为并排 || 包含
+
+布局：
+	行：
+		列
+			行
+				列
+	列：
+
+
+一个大盒子（独立的数据）
+	包含多个2级盒子 这些盒子的展示方式无非两种: 上下 || 左右   最后已这种方式不断循环
+	并且每个盒子里面都可以替换为任意组件
+	最里面的盒子通常都是 text 或者 image
+
+	业务逻辑：
+		提供一个动态组件让他进行下一步操作（弹窗）
+
+
+
+如果style的upx不能用，可以参考： https://blog.csdn.net/xialong_927/article/details/110119409
 
 text
 

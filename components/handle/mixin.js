@@ -9,11 +9,11 @@ export default {
 			}
 		}
 	},
-	computed: {
-		...mapState([
-			'currentData'
-		])
-	},
+	// computed: {
+	// 	...mapState([
+	// 		'currentData'
+	// 	])
+	// },
     methods: {
         ...mapMutations([
             'updateView',
