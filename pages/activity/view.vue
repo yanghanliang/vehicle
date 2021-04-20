@@ -6,7 +6,7 @@
       @click="showCurrentConfig(item, index)"
       class="component-box"
     >
-      <view class="cb-delete" @click.stop="deleteComponent(index)">删除</view>
+      <u-icon class="cb-delete" size="40" color="#fff" name="trash" @click="deleteComponent(index)"></u-icon>
       <component
         :value="item"
         :is="item.type | componentsName('view')"
@@ -147,15 +147,14 @@ export default {
       }
 
       .cb-delete {
+        top: 0;
+        right: 0;
         z-index: 6;
-        bottom: 40upx;
-        right: 40upx;
-        color: red;
+        padding: 10upx;
         display: block;
         cursor: pointer;
         position: absolute;
-        border-radius: 60upx;
-        background-color: pink;
+        background-color: rgba(0, 0, 0, 0.2);
       }
     }
   }
