@@ -6,7 +6,7 @@
       @click="showCurrentConfig(item, index)"
       class="component-box"
     >
-      <view class="cb-delete" @click="deleteComponent(index)">删除</view>
+      <view class="cb-delete" @click.stop="deleteComponent(index)">删除</view>
       <component
         :value="item"
         :is="item.type | componentsName('view')"
@@ -33,7 +33,10 @@ export default {
     viewLayout,
   },
   computed: {
-    ...mapState(['viewList']),
+    ...mapState([
+      'viewList',
+      'baseStyle',
+    ]),
   },
   filters: {
     componentsName (type, prefix) {

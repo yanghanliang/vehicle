@@ -1,5 +1,8 @@
 <template>
   <u-form class="handle-image" :model="value" ref="uForm" :label-width="180">
+    <u-form-item label="边距">
+      <u-input v-model="value.padding" />
+    </u-form-item>
     <u-form-item label="设置背景颜色">
       <u-input v-model="value.backgroundColor" />
     </u-form-item>
@@ -33,7 +36,6 @@ import ATTRIBUTE from '@/components/mobileView/style.js'
 export default {
   watch: {
     style(newVal) {
-      console.log(newVal, 'newVal')
       this.updateBaseStyle(newVal)
     }
   },
@@ -52,17 +54,20 @@ export default {
         }
       }
 
-      console.log(temp, 'style')
       return temp
     },
+  },
+  created() {
+    this.updateBaseStyle(this.style)
   },
   data() {
     return {
       action: 'http://www.example.com/upload',
       value: {
 				type: 'base',
+        padding: '10px',
 				testPosition: '',
-				backgroundColor: '',
+        backgroundColor: '#ddd',
 				backgroundImage: 'url()',
       },
       radioList: [

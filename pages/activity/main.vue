@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapMutations } from 'vuex'
 // 视图
 import mView from '@/pages/activity/view'
 // 操作
@@ -37,9 +37,6 @@ export default {
     mHandle
   },
   computed: {
-    ...mapState([
-      'baseStyle',
-    ]),
     defaultConfig () {
       const defaultData = {
         image: {
@@ -59,25 +56,32 @@ export default {
         },
         layout: {
           type: 'layout',
+          padding: '10px',
           display: 'flex',
+          borderRadius: '10px',
+          backgroundColor: '#fff',
           flexDirection: 'column',
           children: [
             {
               type: 'text',
               text: 'test',
+              field: 'name',
               display: 'block',
+              marginBottom: '5px',
             },
             {
               type: 'view',
-              layout: '0', // 布局，默认值： 左右
               display: 'flex',
+              paddingBottom: '15px',
+              borderBottom: '1px solid #dddddd8a',
               children: [
                 {
-                  src: 'https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png',
+                  src: 'http://otest-oss.s3-ap-south-1.amazonaws.com/2684a0861a8468d9d6e4d5281a63301a.png',
                   type: 'image',
+                  field: 'cover',
                   width: '70px',
                   height: '70px',
-                  marginTop: '5px'
+                  marginRight: '10px',
                 },
                 {
                   type: 'view',
@@ -91,15 +95,21 @@ export default {
                       display: 'flex',
                       children: [
                         {
-                          src: 'https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png',
+                          src: 'http://127.0.0.1:54414/insurance_logo.png',
                           type: 'image',
-                          width: '50px',
-                          height: '30px',
+                          width: '22px',
+                          height: '15px',
+                          marginTop: '8px',
+                          marginRight: '8px',
                         },
                         {
                           type: 'text',
                           flex: '1',
-                          text: '可视角度福克斯的福克斯的福克斯的福克斯的'
+                          width: '50px',
+                          wordWrap: 'break-word',
+                          fontSize: '12px',
+                          color: 'rgb(0, 44, 119)',
+                          text: 'MarshMcLennan provides you with insuxrance services'
                         }
                       ]
                     },
@@ -118,11 +128,15 @@ export default {
                           children: [
                             {
                               type: 'text',
-                              text: 'abc'
+                              text: 'Total income',
+                              color: '#83898F',
                             },
                             {
                               type: 'text',
-                              text: '123'
+                              text: '36.00',
+                              color: 'red',
+                              fontWeight: 'bold',
+                              field: 'total', // TODO 也可以放方法
                             }
                           ]
                         },
@@ -131,15 +145,19 @@ export default {
                           layout: 1,
                           flex: 1,
                           display: 'flex',
+                          textAlign: 'right',
                           flexDirection: 'column',
                           children: [
                             {
                               type: 'text',
-                              text: 'abc'
+                              text: 'period',
+                              color: '#83898F',
                             },
                             {
                               type: 'text',
-                              text: '123'
+                              text: '2 days',
+                              fontWeight: 'bold',
+                              field: 'period', // TODO 也可以放方法
                             }
                           ]
                         }
@@ -148,8 +166,71 @@ export default {
                   ]
                 }
               ]
+            },
+            {
+              type: 'view',
+              display: 'flex',
+              marginTop: '10px',
+              justifyContent: 'space-between',
+              children: [
+                {
+                  type: 'view',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  children: [
+                    {
+                      type: 'view',
+                      display: 'flex',
+                      children: [
+                        {
+                          type: 'text',
+                          text: 'Price: ',
+                          color: '#83898F',
+                        },
+                        {
+                          type: 'text',
+                          text: ' ₹200.00',
+                          color: '#000',
+                          field: 'price',
+                        }
+                      ]
+                    },
+                    {
+                      type: 'view',
+                      display: 'flex',
+                      children: [
+                        {
+                          type: 'text',
+                          text: 'Remaining: ',
+                          color: '#83898F',
+                        },
+                        {
+                          type: 'text',
+                          text: ' 100',
+                          color: '#000',
+                          field: 'remaining',
+                        }
+                      ]
+                    },
+                  ],
+                },
+                {
+                  margin: '0',
+                  text: 'Wanted',
+                  type: 'bottom',
+                  backgroundColor: 'rgb(255, 195, 1)',
+                }
+              ]
             }
-          ]
+          ],
+          data: {
+            name: '000',
+            cover: '000',
+            total: '000',
+            period: '000',
+            price: '000',
+            remaining: '000',
+          }
         }
       }
 
@@ -437,6 +518,8 @@ export default {
 
   .activity-right {
     padding: 40upx;
+    height: 1200upx;
+    overflow-y: auto;
     min-width: 150upx;
     border: 1upx solid #ddd;
 

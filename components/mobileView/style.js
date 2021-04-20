@@ -16,5 +16,12 @@ module.exports = [
 	'width',
 	'height',
 	'border',
-
+	'borderRadius',
+	'borderBottom',
+	'padding',
+	'paddingBottom',
+	'margin',
+	'marginRight',
+	'textAlign',
+	'wordWrap',
 ]
