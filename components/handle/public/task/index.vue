@@ -8,11 +8,8 @@
     <u-form-item label="">
       <u-upload ref="uUpload" :action="action" :auto-upload="true"></u-upload>
     </u-form-item>
-    <u-form-item label="模块上间距:"
-      ><u-input v-model="form.marginTop"
-    /></u-form-item>
-    <u-form-item label="模块下间距:"
-      ><u-input v-model="form.marginBottom"
+    <u-form-item label="模块间距(上右下左):"
+      ><u-input v-model="form.margin"
     /></u-form-item>
 
     <u-form-item label="任务详情:"> </u-form-item>
@@ -36,7 +33,36 @@
       ></u-picker>
     </u-form-item>
     <u-form-item label="完成数量:"
-      ><u-input v-model="form.number"
+      ><u-input v-model="form.completeNumber"
+    /></u-form-item>
+    <u-form-item label="数据统计周期:">
+      <u-radio-group v-model="form.statistics" @change="statisticsChange">
+        <u-radio
+          v-for="(item, index) in statisticsList"
+          :key="index"
+          :name="item.name"
+        >
+          {{ item.name }}
+        </u-radio>
+      </u-radio-group>
+    </u-form-item>
+    <u-form-item label="奖励物品:">
+      <u-input
+        @click="rewardShow = !rewardShow"
+        v-model="form.reward"
+        type="select"
+      />
+      <u-picker
+        @confirm="rewardSucess"
+        mode="selector"
+        v-model="rewardShow"
+        :default-selector="defaultReward"
+        :range="rewardList"
+        range-key="name"
+      ></u-picker>
+    </u-form-item>
+    <u-form-item label="奖励数量:"
+      ><u-input v-model="form.rewardNumber"
     /></u-form-item>
     <u-form-item label="Go to finish 链接:"
       ><u-input v-model="form.link"
@@ -56,14 +82,14 @@
       <textarea
         v-model="form.contact"
         :disabled="form.modeId === 0"
-        maxlength="140"
+        maxlength="300"
         placeholder="多个链接请以英文逗号,隔开"
       />
     </u-form-item>
     <u-form-item label="用户参与条件:">
       <u-input
         @click="userShow = !userShow"
-        v-model="form.condition"
+        v-model="form.user"
         type="select"
       />
       <u-picker
@@ -82,7 +108,10 @@
 </template>
 
 <script>
+import mixin from '@/components/handle/mixin.js'
+
 export default {
+  mixins: [mixin],
   watch: {
     form: {
       deep: true,
@@ -98,7 +127,9 @@ export default {
     return {
       action: 'http://www.example.com/upload',
       userShow: false,
+      rewardShow: false,
       defaultUser: [0],
+      defaultReward: [0],
       conditionShow: false,
       defaultCondition: [0],
       form: {
@@ -107,14 +138,30 @@ export default {
         link: '',
         mode: '系统自动发放',
         modeId: '',
-        number: '',
+        statistics: '',
+        statisticsId: '',
+        reward: '',
+        completeNumber: '',
         contact: '',
         describe: '',
         condition: '',
         conditionId: '',
         user: '',
         userId: '',
+        reward: '',
+        rewardId: '',
+        rewardNumber: '',
       },
+      statisticsList: [
+        {
+          value: 0,
+          name: '自活动开始'
+        },
+        {
+          value: 1,
+          name: '包括历史数据'
+        }
+      ],
       userList: [
         {
           value: 0,
@@ -177,23 +224,61 @@ export default {
           name: '客服手动发放',
         },
       ],
+      rewardList: [
+        {
+          value: 0,
+          name: '卢比'
+        },
+        {
+          value: 1,
+          name: '3天3%牛'
+        },
+        {
+          value: 2,
+          name: '5天4%牛'
+        },
+        {
+          value: 3,
+          name: '7天5%牛'
+        },
+        {
+          value: 4,
+          name: '14天6%牛'
+        },
+        {
+          value: 5,
+          name: '30天7%牛'
+        },
+        {
+          value: 6,
+          name: '60天8%牛'
+        }
+      ]
     }
   },
   methods: {
+    userSucess([value]) {
+      this.form.userId = value
+      this.form.user = this.userList.find((item) => item.value === value).name
+    },
+    rewardSucess([value]) {
+      this.form.rewardId = value
+      this.form.reward = this.rewardList.find((item) => item.value === value).name
+    },
     conditionSucess([value]) {
       this.form.conditionId = value
       this.form.condition = this.conditionList.find(
         (item) => item.value === value
       ).name
     },
-    userSucess([value]) {
-      this.form.userId = value
-      this.form.user = this.userList.find((item) => item.value === value).name
-    },
     modeChange(name) {
       this.form.mode = name
       this.form.modeId = this.modeList.find((item) => item.name === name).value
     },
+    statisticsChange(name) {
+      this.form.statistics = name
+      this.form.statisticsId = this.statisticsList.find((item) => item.name === name).value
+    }
   },
 }
 </script>

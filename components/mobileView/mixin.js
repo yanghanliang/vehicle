@@ -17,6 +17,7 @@ export default {
   computed: {
     style() {
       let temp = ''
+      console.log(this.value, '????????')
 
       for (let key in this.value) {
         if (ATTRIBUTE.includes(key) && this.value[key]) {

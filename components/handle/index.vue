@@ -3,6 +3,7 @@
     <handle-base />
     <component :is="handleDara.type | componentsName('handle')" :value="handleDara" key="gg"></component>
     <u-button style="margin-top: 10px" @click="submit">保存配置</u-button>
+    <u-button style="margin-top: 10px" @click="updateDefaultData">更新组件默认配置</u-button>
   </view>
 </template>
 
@@ -27,6 +28,7 @@ export default {
   computed: {
     ...mapState([
       'viewList',
+      'baseStyle',
       'currentData',
     ]),
   },
@@ -53,8 +55,12 @@ export default {
     }
   },
   methods: {
+    ...mapMutations([
+      'updateDefaultData'
+    ]),
     submit () {
       localStorage.setItem('viewList', JSON.stringify(this.viewList))
+      localStorage.setItem('baseStyle', JSON.stringify(this.baseStyle))
     },
     updateImage() {
       this.form.src = 'http://127.0.0.1:54414/5f11295729666ccee93aec034b7e1bc9.jpeg'

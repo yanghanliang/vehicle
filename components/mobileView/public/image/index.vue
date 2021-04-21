@@ -5,7 +5,6 @@
     :src="value.src"
     :style="style"
   >
-    {{ style }}
   </u-image>
 </template>
 

@@ -5,12 +5,14 @@
         v-if="item.children && item.type === 'view'"
         :key="item.type + index"
         :value="item"
+        :data="data"
       >
       </layout-children>
       <component
         v-else
         :is="item.type | componentsName('layout')"
         :key="item.type + index"
+        :data="data"
         :value="item"
       >
       </component>
@@ -29,6 +31,7 @@ import layoutBottom from '@/components/mobileView/public/layout/bottom'
 export default {
   name: 'layoutChildren',
   mixins: [mixin],
+  props: ['data'],
   components: {
     // layoutView,
     layoutText,

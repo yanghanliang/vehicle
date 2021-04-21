@@ -9,6 +9,7 @@
       <u-icon class="cb-delete" size="40" color="#fff" name="trash" @click="deleteComponent(index)"></u-icon>
       <component
         :value="item"
+        :data="item.data"
         :is="item.type | componentsName('view')"
         :key="item.type + index + Math.random()"
       ></component>
@@ -38,6 +39,14 @@ export default {
       'baseStyle',
     ]),
   },
+  watch: {
+    baseStyle: {
+      immediate: true,
+      handler (newVal) {
+        console.log(newVal, 'baseStyle???')
+      }
+    }
+  },
   filters: {
     componentsName (type, prefix) {
       if (type) {
@@ -48,19 +57,27 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['updateData', 'deleteComponent', 'updateViewList']),
+    ...mapMutations([
+      'updateData',
+      'updateViewList',
+      'deleteComponent',
+      'updateBaseStyle',
+    ]),
     showCurrentConfig (item, index) {
       const params = {
         ...item,
         position: index,
       }
+      console.log('????show')
       this.updateData(params)
     },
   },
   created () {
     let viewList = ''
+    let baseStyle = ''
     // #ifdef H5
     viewList = localStorage.getItem('viewList')
+    baseStyle = localStorage.getItem('baseStyle')
     console.log('H5')
     // #endif
 
@@ -99,6 +116,12 @@ export default {
       this.updateViewList(viewList)
       // #endif
     }
+
+    if (baseStyle) {
+      // #ifdef H5
+      this.updateBaseStyle(JSON.parse(baseStyle))
+      // #endif
+    }
   },
 }
 </script>
@@ -106,6 +129,8 @@ export default {
 <style lang="scss" scoped>
 .ac-mobile {
   min-height: 100%;
+  // 防止垂直上边距塌陷
+  overflow: hidden;
 
   &::-webkit-scrollbar {
     width: 6px !important;

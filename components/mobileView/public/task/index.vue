@@ -1,33 +1,45 @@
 <template>
-  <view class="task">
-    <view class="task-title"> 任务名称 </view>
-    <textarea class="task-describe" value="" placeholder="任务描述" />
+  <view class="task" :style="style">
+    <view class="task-title">{{ value.name }}</view>
+    <textarea class="task-describe" :value="value.describe" placeholder="任务描述" />
     <view class="task-bottom">
       <view class="tb-left">
         <image src="" mode=""></image>
         <text>奖品数量</text>
       </view>
       <view class="tb-right">
-        <text>0/1</text>
-        <u-button shape="circle">Go to finish</u-button>
+        <text>0/{{ value.completeNumber }}</text>
+        <u-button :type="type" shape="circle" @click="jump">Go to finish</u-button>
       </view>
     </view>
   </view>
 </template>
 
 <script>
+import mixin from '@/components/mobileView/mixin.js'
+
 export default {
   name: 'mTask',
+  mixins: [mixin],
+  methods: {
+    jump () {
+      uni.reLaunch({ url: this.value.contact })
+      console.log(this.value.contact, 'this.value.href')
+    }
+  },
+  computed: {
+    type () {
+      return 'success'
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .task {
-  margin: 14upx;
   padding: 16upx;
   border-radius: 18upx;
 	background-color: #fff;
-  border: 1upx solid #ddd;
 
   .task-title {
     font-size: 30upx;
@@ -37,6 +49,7 @@ export default {
   textarea {
     height: 80upx;
 		font-size: 24upx;
+    color: #999;
   }
 
   .task-bottom {
