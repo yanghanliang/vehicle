@@ -5,6 +5,11 @@ import { uToast } from 'uview-ui';
 
 Vue.use(Vuex)
 
+const STATUS = {
+  roll: 0,
+  noScrolling: 1,
+}
+
 const store = new Vuex.Store({
   state: {
     viewList: [
@@ -38,11 +43,13 @@ const store = new Vuex.Store({
         text: '心朝大海，春暖花开',
       },
       task: {
-        type: 'task',
         margin: '',
+        type: 'task',
         name: '任务名称',
-				completeNumber: 5,
+        currentNumber: 4, // 当前数量
+				completeNumber: 5, // 完成数量
 				describe: '任务描述',
+        isReceive: false,
 				contact: 'http://www.baidu.com',
       },
       layout: {
@@ -235,6 +242,8 @@ const store = new Vuex.Store({
       type: 'base',
       height: '100px',
       testPosition: '',
+      backgroundType: '背景图随页面滚动',
+      backgroundTypeId: STATUS.roll,
       backgroundColor: '#ddd',
       backgroundImage: 'url()',
     },
@@ -290,15 +299,6 @@ const store = new Vuex.Store({
     updateViewList(state, viewList) {
       state.viewList = [...viewList]
     },
-    // 更新 公共样式
-    updateBaseStyle(state, style) {
-      state.baseStyle = { ...style }
-    },
-    // 更新公共背景图片滚动类型
-    updateBaseBackgroundImage(state, backgroundImage) {
-      state.backgroundImage = backgroundImage
-      console.log(state.backgroundImage, 'state.baseBackgroundImagestate.baseBackgroundImage')
-    },
 		// 更新默认配置
 		updateDefaultData (state) {
 			state.defaultData[state.currentData.type] =  { ...state.viewList[state.currentData.position] }
@@ -307,12 +307,15 @@ const store = new Vuex.Store({
 				title: '更新默认配置成功',
 				duration: 2000
 			});
-		}
-  },
-  getters: {
-    viewListCopy(state) {
-      return state.viewList
-    },
+		},
+    // 更新 公共样式
+    updateBaseStyle (state, item) {
+      for (const key in item) {
+        state.baseStyle[key] = item[key]
+      }
+
+      state.baseStyle = { ...state.baseStyle }
+    }
   },
 })
 

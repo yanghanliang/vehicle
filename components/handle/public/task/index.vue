@@ -141,7 +141,8 @@ export default {
         statistics: '',
         statisticsId: '',
         reward: '',
-        completeNumber: '',
+        completeNumber: '', // 完成数量
+        currentNumber: '', // 当前数量
         contact: '',
         describe: '',
         condition: '',
@@ -151,6 +152,7 @@ export default {
         reward: '',
         rewardId: '',
         rewardNumber: '',
+        isReceive: false, // 是否领取
       },
       statisticsList: [
         {

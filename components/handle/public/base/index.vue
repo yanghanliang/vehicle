@@ -1,17 +1,17 @@
 <template>
-  <u-form class="handle-image" :model="value" ref="uForm" :label-width="240">
+  <u-form class="handle-image" :model="form" ref="uForm" :label-width="240">
     <u-form-item label="设置背景颜色:">
-      <u-input v-model="value.backgroundColor" />
+      <u-input @input="updateBaseStyle({ backgroundColor: form.backgroundColor })" v-model="form.backgroundColor" />
     </u-form-item>
     <u-form-item label="设置背景图:">
-      <u-input v-model="value.backgroundImage" />
+      <u-input v-model="form.backgroundImage" @input="updateBaseStyle({ backgroundImage: form.backgroundImage })" />
       <u-button type="primary">选择文件</u-button>
     </u-form-item>
     <u-form-item label="">
       <u-upload ref="uUpload" :action="action" :auto-upload="true"></u-upload>
     </u-form-item>
     <u-form-item label="">
-      <u-radio-group v-model="value.backgroundType" @change="BTChange">
+      <u-radio-group v-model="form.backgroundType" @change="BTChange">
         <u-radio
           v-for="(item, index) in BTList"
           :key="index"
@@ -22,8 +22,8 @@
         </u-radio>
       </u-radio-group>
     </u-form-item>
-    <u-form-item v-if="STATUS.noScrolling === value.backgroundTypeId" label="设置背景图高度:">
-      <u-input v-model="value.height" />
+    <u-form-item v-if="STATUS.noScrolling === form.backgroundTypeId" label="设置背景图高度:">
+      <u-input @input="updateBaseStyle({ height: form.height })" v-model="form.height" />
     </u-form-item>
   </u-form>
 </template>
@@ -38,12 +38,13 @@ import { mapMutations, mapState } from 'vuex'
 
 export default {
   watch: {
-    value: {
+    baseStyle: {
       deep: true,
       handler (newVal) {
-        this.updateBaseStyle(newVal)
+        console.log(newVal, 'handle-base???')
+        this.form = { ...newVal }
       }
-    },
+    }
   },
   computed: {
     // 公共的方法
@@ -52,32 +53,32 @@ export default {
     ]),
   },
   created() {
-    let baseStyle = ''
-    // #ifdef H5
-    baseStyle = localStorage.getItem('baseStyle')
-    console.log('H5')
-    // #endif
+    // let baseStyle = ''
+    // // #ifdef H5
+    // baseStyle = localStorage.getItem('baseStyle')
+    // console.log('H5')
+    // // #endif
 
-    if (baseStyle) {
-      baseStyle = JSON.parse(baseStyle)
-      this.value = { ...baseStyle }
-      // #ifdef H5
-      this.updateBaseStyle(baseStyle)
-      // #endif
-    }
+    // if (baseStyle) {
+    //   baseStyle = JSON.parse(baseStyle)
+    //   this.value = { ...baseStyle }
+    //   // #ifdef H5
+    //   this.updateBaseStyle(baseStyle)
+    //   // #endif
+    // }
   },
   data() {
     return {
       STATUS,
       action: 'http://www.example.com/upload',
-      value: {
-				type: 'base',
-        height: '100px',
-				testPosition: '',
-        backgroundType: '背景图随页面滚动',
-        backgroundTypeId: STATUS.roll,
-        backgroundColor: '#ddd',
-				backgroundImage: 'url()',
+      form: {
+				// type: 'base',
+        // height: '100px',
+				// testPosition: '',
+        // backgroundType: '背景图随页面滚动',
+        // backgroundTypeId: STATUS.roll,
+        // backgroundColor: '#ddd',
+				// backgroundImage: 'url()',
       },
       BTList: [
         {
@@ -94,7 +95,6 @@ export default {
   methods: {
     ...mapMutations([
       'updateBaseStyle',
-      'updateBaseBackgroundImage',
     ]),
     submit() {
       // this.value.src = this.$refs.uUpload.lists[0].url
@@ -103,9 +103,14 @@ export default {
       // this.updateView({ src: this.value.src })
     },
     BTChange(name) {
-      this.value.backgroundType = name
-      this.value.backgroundTypeId = this.BTList.find((item) => item.name === name).value
-    }
+      this.form.backgroundType = name
+      this.form.backgroundTypeId = this.BTList.find((item) => item.name === name).value
+
+      this.updateBaseStyle({
+        backgroundType: this.form.backgroundType,
+        backgroundTypeId: this.form.backgroundTypeId,
+      })
+    },
   },
 }
 </script>

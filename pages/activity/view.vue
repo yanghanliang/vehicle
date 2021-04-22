@@ -117,62 +117,64 @@ export default {
       return temp
     },
     async getData () {
-      const data = await this.$u.get('/profile')
+      const { baseStyle, viewList } = await this.$u.get('/profile')
+      this.updateBaseStyle(baseStyle)
+      this.updateViewList(viewList)
 
-      console.log(data, 'data???')
+      // console.log(data, 'data???')
     }
   },
   created () {
     this.getData()
-    let viewList = ''
-    let baseStyle = ''
-    // #ifdef H5
-    viewList = localStorage.getItem('viewList')
-    baseStyle = localStorage.getItem('baseStyle')
-    console.log('H5')
-    // #endif
+    // let viewList = ''
+    // let baseStyle = ''
+    // // #ifdef H5
+    // viewList = localStorage.getItem('viewList')
+    // baseStyle = localStorage.getItem('baseStyle')
+    // console.log('H5')
+    // // #endif
 
-    // #ifndef H5
-    console.log('除了H5')
-    // viewList = uni.getStorageSync('viewList')
-    viewList = [
-      {
-        type: 'image',
-        width: '100%',
-        height: '300rpx',
-        marginTop: '',
-        marginBottom: '',
-        src: 'https://cdn.uviewui.com/uview/example/fade.jpg',
-        position: 0,
-      },
-      {
-        type: 'image',
-        width: '100%',
-        height: '300rpx',
-        marginTop: '',
-        marginBottom: '',
-        src: 'http://127.0.0.1:54414/5f11295729666ccee93aec034b7e1bc9.jpeg',
-        position: 1,
-      },
-      { type: 'textarea', text: '心朝大海，春暖花开', position: 2, index: '2' },
-    ]
-    // #endif
+    // // #ifndef H5
+    // console.log('除了H5')
+    // // viewList = uni.getStorageSync('viewList')
+    // viewList = [
+    //   {
+    //     type: 'image',
+    //     width: '100%',
+    //     height: '300rpx',
+    //     marginTop: '',
+    //     marginBottom: '',
+    //     src: 'https://cdn.uviewui.com/uview/example/fade.jpg',
+    //     position: 0,
+    //   },
+    //   {
+    //     type: 'image',
+    //     width: '100%',
+    //     height: '300rpx',
+    //     marginTop: '',
+    //     marginBottom: '',
+    //     src: 'http://127.0.0.1:54414/5f11295729666ccee93aec034b7e1bc9.jpeg',
+    //     position: 1,
+    //   },
+    //   { type: 'textarea', text: '心朝大海，春暖花开', position: 2, index: '2' },
+    // ]
+    // // #endif
 
-    if (viewList) {
-      // #ifdef H5
-      this.updateViewList(JSON.parse(viewList))
-      // #endif
+    // if (viewList) {
+    //   // #ifdef H5
+    //   this.updateViewList(JSON.parse(viewList))
+    //   // #endif
 
-      // #ifndef H5
-      this.updateViewList(viewList)
-      // #endif
-    }
+    //   // #ifndef H5
+    //   this.updateViewList(viewList)
+    //   // #endif
+    // }
 
-    if (baseStyle) {
-      // #ifdef H5
-      this.updateBaseStyle(JSON.parse(baseStyle))
-      // #endif
-    }
+    // if (baseStyle) {
+    //   // #ifdef H5
+    //   this.updateBaseStyle(JSON.parse(baseStyle))
+    //   // #endif
+    // }
   },
   data () {
     return {
