@@ -1,5 +1,6 @@
 <template>
-  <view class="ac-mobile" :style="baseStyle">
+  <view class="ac-mobile" :style="baseBox">
+    <view class="mobile-bg" v-if="baseBG" :style="baseBG"></view>
     <view
       v-for="(item, index) in viewList"
       :key="item.type + index"
@@ -24,6 +25,12 @@ import viewTask from '@/components/mobileView/public/task/index'
 import viewImage from '@/components/mobileView/public/image/index'
 import viewTextarea from '@/components/mobileView/public/textarea/index'
 import viewLayout from '@/components/mobileView/layout'
+import ATTRIBUTE from '@/components/mobileView/style.js'
+
+const STATUS = {
+  roll: 0,
+  noScrolling: 1,
+}
 
 export default {
   components: {
@@ -37,13 +44,37 @@ export default {
     ...mapState([
       'viewList',
       'baseStyle',
+      'backgroundImage',
     ]),
   },
   watch: {
     baseStyle: {
       immediate: true,
       handler (newVal) {
-        console.log(newVal, 'baseStyle???')
+        console.log(newVal, 'baseStyle-改变了')
+        this.value = { ...newVal }
+        const params = { ...newVal }
+
+        delete params.height
+        console.log(newVal, 'newVal-公共样式')
+        // 如果是背景图片固定的情况，则进行特殊处理
+        // 将公共样式和背景样式分开展示，并关闭公共样式的背景图片
+        if (newVal.backgroundTypeId === STATUS.noScrolling) {
+          delete params.backgroundImage
+
+          console.log(document.querySelector('.ac-mobile').clientWidth, 'width')
+          this.baseBG = this.styleTransform({
+            height: newVal.height,
+            backgroundImage: newVal.backgroundImage,
+            width: document.querySelector('.ac-mobile').clientWidth + 'px',
+          })
+          this.baseBox = this.styleTransform(params)
+          return
+        }
+
+        // TODO 切换时改变图片
+        this.baseBox = this.styleTransform(params)
+        this.baseBG = ''
       }
     }
   },
@@ -52,8 +83,6 @@ export default {
       if (type) {
         return prefix + type.slice(0, 1).toLocaleUpperCase() + type.slice(1)
       }
-
-      return 'handleImage'
     },
   },
   methods: {
@@ -62,6 +91,7 @@ export default {
       'updateViewList',
       'deleteComponent',
       'updateBaseStyle',
+      'updateBaseBackgroundImage',
     ]),
     showCurrentConfig (item, index) {
       const params = {
@@ -71,8 +101,29 @@ export default {
       console.log('????show')
       this.updateData(params)
     },
+    styleTransform (style) {
+      let temp = ''
+
+      for (const key in style) {
+        if (ATTRIBUTE.includes(key) && style[key]) {
+          temp +=
+            key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase() +
+            ': ' +
+            style[key] +
+            '; '
+        }
+      }
+
+      return temp
+    },
+    async getData () {
+      const data = await this.$u.get('/profile')
+
+      console.log(data, 'data???')
+    }
   },
   created () {
+    this.getData()
     let viewList = ''
     let baseStyle = ''
     // #ifdef H5
@@ -123,6 +174,13 @@ export default {
       // #endif
     }
   },
+  data () {
+    return {
+      value: {},
+      baseBG: '',
+      baseBox: '',
+    }
+  },
 }
 </script>
 
@@ -131,6 +189,8 @@ export default {
   min-height: 100%;
   // 防止垂直上边距塌陷
   overflow: hidden;
+  background-size: contain;
+  background-repeat: no-repeat;
 
   &::-webkit-scrollbar {
     width: 6px !important;
@@ -147,6 +207,16 @@ export default {
 
   &::-webkit-scrollbar-thumb:hover {
     background-color: #ccc !important;
+  }
+
+  .mobile-bg {
+    width: 650upx;
+    height: 200upx;
+    position: fixed;
+    z-index: 9;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   .component-box {

@@ -229,8 +229,15 @@ const store = new Vuex.Store({
     currentData: {
       position: '',
     },
-    baseStyle: '',
 		position: '',
+    backgroundImage: '', // 公共的背景图片
+    baseStyle: {
+      type: 'base',
+      height: '100px',
+      testPosition: '',
+      backgroundColor: '#ddd',
+      backgroundImage: 'url()',
+    },
   },
   mutations: {
     // 更新视图及当前数据
@@ -285,7 +292,12 @@ const store = new Vuex.Store({
     },
     // 更新 公共样式
     updateBaseStyle(state, style) {
-      state.baseStyle = style
+      state.baseStyle = { ...style }
+    },
+    // 更新公共背景图片滚动类型
+    updateBaseBackgroundImage(state, backgroundImage) {
+      state.backgroundImage = backgroundImage
+      console.log(state.backgroundImage, 'state.baseBackgroundImagestate.baseBackgroundImage')
     },
 		// 更新默认配置
 		updateDefaultData (state) {

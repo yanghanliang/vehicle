@@ -41,204 +41,6 @@ export default {
       'defaultData',
     ]),
     defaultConfig () {
-      // const defaultData = {
-      //   image: {
-      //     type: 'image',
-      //     width: '100%',
-      //     height: '300rpx',
-      //     marginTop: '',
-      //     marginBottom: '',
-      //     src: 'https://cdn.uviewui.com/uview/example/fade.jpg',
-      //   },
-      //   textarea: {
-      //     type: 'textarea',
-      //     text: '心朝大海，春暖花开',
-      //   },
-      //   task: {
-      //     type: 'task',
-      //     name: '任务名称',
-      //     margin: '',
-      //   },
-      //   layout: {
-      //     type: 'layout',
-      //     padding: '10px',
-      //     display: 'flex',
-      //     borderRadius: '10px',
-      //     backgroundColor: '#fff',
-      //     flexDirection: 'column',
-      //     children: [
-      //       {
-      //         type: 'text',
-      //         text: 'test',
-      //         field: 'name',
-      //         display: 'block',
-      //         marginBottom: '5px',
-      //       },
-      //       {
-      //         type: 'view',
-      //         display: 'flex',
-      //         paddingBottom: '15px',
-      //         borderBottom: '1px solid #dddddd8a',
-      //         children: [
-      //           {
-      //             src: 'http://otest-oss.s3-ap-south-1.amazonaws.com/2684a0861a8468d9d6e4d5281a63301a.png',
-      //             type: 'image',
-      //             field: 'cover',
-      //             width: '70px',
-      //             height: '70px',
-      //             marginRight: '10px',
-      //           },
-      //           {
-      //             type: 'view',
-      //             flex: '1',
-      //             display: 'flex',
-      //             flexDirection: 'column',
-      //             children: [
-      //               {
-      //                 type: 'view',
-      //                 layout: 0, // 布局，默认值： 左右
-      //                 display: 'flex',
-      //                 children: [
-      //                   {
-      //                     src: 'http://127.0.0.1:54414/insurance_logo.png',
-      //                     type: 'image',
-      //                     width: '22px',
-      //                     height: '15px',
-      //                     marginTop: '8px',
-      //                     marginRight: '8px',
-      //                   },
-      //                   {
-      //                     type: 'text',
-      //                     flex: '1',
-      //                     width: '50px',
-      //                     wordWrap: 'break-word',
-      //                     fontSize: '12px',
-      //                     color: 'rgb(0, 44, 119)',
-      //                     text: 'MarshMcLennan provides you with insuxrance services'
-      //                   }
-      //                 ]
-      //               },
-      //               {
-      //                 type: 'view',
-      //                 layout: '0', // 布局，默认值： 左右
-      //                 display: 'flex',
-      //                 justifyContent: 'space-between',
-      //                 children: [
-      //                   {
-      //                     type: 'view',
-      //                     layout: 1,
-      //                     flex: 1,
-      //                     display: 'flex',
-      //                     flexDirection: 'column',
-      //                     children: [
-      //                       {
-      //                         type: 'text',
-      //                         text: 'Total income',
-      //                         color: '#83898F',
-      //                       },
-      //                       {
-      //                         type: 'text',
-      //                         text: '36.00',
-      //                         color: 'red',
-      //                         fontWeight: 'bold',
-      //                         field: 'total', // TODO 也可以放方法
-      //                       }
-      //                     ]
-      //                   },
-      //                   {
-      //                     type: 'view',
-      //                     layout: 1,
-      //                     flex: 1,
-      //                     display: 'flex',
-      //                     textAlign: 'right',
-      //                     flexDirection: 'column',
-      //                     children: [
-      //                       {
-      //                         type: 'text',
-      //                         text: 'period',
-      //                         color: '#83898F',
-      //                       },
-      //                       {
-      //                         type: 'text',
-      //                         text: '2 days',
-      //                         fontWeight: 'bold',
-      //                         field: 'period', // TODO 也可以放方法
-      //                       }
-      //                     ]
-      //                   }
-      //                 ]
-      //               }
-      //             ]
-      //           }
-      //         ]
-      //       },
-      //       {
-      //         type: 'view',
-      //         display: 'flex',
-      //         marginTop: '10px',
-      //         justifyContent: 'space-between',
-      //         children: [
-      //           {
-      //             type: 'view',
-      //             display: 'flex',
-      //             flexDirection: 'column',
-      //             children: [
-      //               {
-      //                 type: 'view',
-      //                 display: 'flex',
-      //                 children: [
-      //                   {
-      //                     type: 'text',
-      //                     text: 'Price: ',
-      //                     color: '#83898F',
-      //                   },
-      //                   {
-      //                     type: 'text',
-      //                     text: ' ₹200.00',
-      //                     color: '#000',
-      //                     field: 'price',
-      //                   }
-      //                 ]
-      //               },
-      //               {
-      //                 type: 'view',
-      //                 display: 'flex',
-      //                 children: [
-      //                   {
-      //                     type: 'text',
-      //                     text: 'Remaining: ',
-      //                     color: '#83898F',
-      //                   },
-      //                   {
-      //                     type: 'text',
-      //                     text: ' 100',
-      //                     color: '#000',
-      //                     field: 'remaining',
-      //                   }
-      //                 ]
-      //               },
-      //             ],
-      //           },
-      //           {
-      //             margin: '0',
-      //             text: 'Wanted',
-      //             type: 'bottom',
-      //             backgroundColor: 'rgb(255, 195, 1)',
-      //           }
-      //         ]
-      //       }
-      //     ],
-      //     data: {
-      //       name: '000',
-      //       cover: '000',
-      //       total: '000',
-      //       period: '000',
-      //       price: '000',
-      //       remaining: '000',
-      //     }
-      //   }
-      // }
-
       return this.defaultData[this.type]
     },
   },
@@ -294,8 +96,6 @@ export default {
       })
 
       this.componentInfo = arr
-
-      console.log(arr, 'arr????')
     },
     init () {
       const vm = this
@@ -408,14 +208,19 @@ export default {
           // 获取目标元素的标签名
           vm.type = that.cloneEle.getAttribute('type')
 
+          console.log(className, 'className')
+          that.cloneEle.remove()
+
           // 放入手机空白处
-          if (['ac-mobile'].includes(className)) {
-            console.log('aaaaaaaaaa')
+          if (['ac-mobile', 'mobile-bg'].includes(className)) {
+            console.log('aaaaaaaaaa', vm.defaultConfig, 'vm.defaultConfig')
             // 更新当前组件
             vm.updateData({
               ...vm.defaultConfig,
               position: vm.viewList.length,
             })
+
+            return
           }
 
           // 放在组件上面
@@ -424,6 +229,7 @@ export default {
             vm.getComponentInfo()
 
             const length = vm.componentInfo.length
+            console.log(length, 'length')
             let position = ''
 
             for (let i = 0; i < length; i++) {
@@ -442,6 +248,18 @@ export default {
               }
             }
 
+            console.log(position, typeof position, 'position/??????')
+
+            if (length === 0 || position === '') {
+              // 更新当前组件
+              vm.updateData({
+                ...vm.defaultConfig,
+                position: vm.viewList.length,
+              })
+              return
+            }
+
+            console.log(position, 'position')
             // 更新当前组件
             if (position === 0 || position) {
               vm.updateData({
@@ -451,8 +269,6 @@ export default {
               })
             }
           }
-
-          that.cloneEle.remove()
         }
       }
 
@@ -498,7 +314,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .activity {
   display: flex;
 
@@ -554,6 +370,11 @@ export default {
       overflow: auto;
       height: 1160upx;
       position: relative;
+
+      .mobile-bg {
+        top: 228upx;
+        width: 648upx !important;
+      }
     }
 
     // .ac-mobile {

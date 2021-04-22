@@ -1,7 +1,7 @@
 <template>
 	<view class="handle">
     <handle-base />
-    <component :is="handleDara.type | componentsName('handle')" :value="handleDara" key="gg"></component>
+    <component :is="handleData.type | componentsName('handle')" :value="handleData" key="abc"></component>
     <u-button style="margin-top: 10px" @click="submit">保存配置</u-button>
     <u-button style="margin-top: 10px" @click="updateDefaultData">更新组件默认配置</u-button>
   </view>
@@ -37,21 +37,19 @@ export default {
       if (type) {
         return prefix + type.slice(0, 1).toLocaleUpperCase() + type.slice(1)
       }
-
-      return 'handleImage'
     }
   },
   watch: {
     currentData: {
       deep: true,
       handler (newVal, oldVal) {
-        this.handleDara = { ...newVal }
+        this.handleData = { ...newVal }
       }
     },
   },
   data() {
     return {
-      handleDara: {}, // 操作的数据
+      handleData: {}, // 操作的数据
     }
   },
   methods: {
