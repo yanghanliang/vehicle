@@ -6,7 +6,16 @@
       <u-button type="primary">选择文件</u-button>
     </u-form-item>
     <u-form-item label="">
-      <u-upload ref="uUpload" :action="action" :auto-upload="true"></u-upload>
+      <u-upload
+        ref="uUpload"
+        :action="action"
+        :show-progress="false"
+        :file-list="fileList"
+        :auto-upload="true"
+        @on-success="onSuccess"
+        @on-remove="onRemove"
+      >
+      </u-upload>
     </u-form-item>
     <u-form-item label="模块间距(上右下左):"
       ><u-input v-model="form.margin"
@@ -119,13 +128,17 @@ export default {
         console.log(newVal, 'newVal')
       },
     },
+    fileList (newVal) {
+      console.log(newVal, 'newVal??')
+    },
   },
   computed: {
     contact() {},
   },
   data() {
     return {
-      action: 'http://www.example.com/upload',
+      action: 'http://47.98.182.149:3001/uploadFile',
+      fileList: [],
       userShow: false,
       rewardShow: false,
       defaultUser: [0],
@@ -259,6 +272,12 @@ export default {
     }
   },
   methods: {
+    onRemove(index, lists, name) {
+      console.log(index, lists, name, 'index, lists, name')
+    },
+    onSuccess(data, index, lists, name) {
+      console.log(data, index, lists, name, 'data, index, lists, name')
+    },
     userSucess([value]) {
       this.form.userId = value
       this.form.user = this.userList.find((item) => item.value === value).name
@@ -284,6 +303,16 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+  uni-modal /deep/ .uni-modal__hd {
+    padding: 1em 44% .3em;
+
+    .uni-modal__title {
+      height: 48upx;
+    }
+  }
+</style>
 
 <style lang="scss" scoped>
 .handle-image {

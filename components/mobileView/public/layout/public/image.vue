@@ -1,13 +1,17 @@
 <template>
-  <image :src="src" :style="style" mode="" />
+  <image
+    mode=""
+    :src="src"
+    :style="style"
+  />
 </template>
 
 <script>
 import mixin from '@/components/mobileView/mixin.js'
+import layoutMixin from '@/components/mobileView/public/layout/mixin.js'
 
 export default {
-  mixins: [mixin],
-  props: ['data'],
+  mixins: [mixin, layoutMixin],
   computed: {
     src () {
       return this.value.field ? this.data[this.value.field] : this.value.src

@@ -7,4 +7,6 @@
 @import 'uview-ui/theme.scss';
 
 // 引入全局公共样式
-@import '@/static/common/scss/public.scss'
+@import '@/static/common/scss/public.scss';
+// 修改 ui 样式
+@import '@/static/common/scss/reset.scss';

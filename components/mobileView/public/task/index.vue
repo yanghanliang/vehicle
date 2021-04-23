@@ -9,7 +9,7 @@
       </view>
       <view class="tb-right">
         <text>{{ value.currentNumber }}/{{ value.completeNumber }}</text>
-        <u-button :type="type" shape="circle" @click="jump">Go to finish</u-button>
+        <u-button :type="type" shape="circle" @click="jump">{{ butText }}</u-button>
       </view>
     </view>
   </view>
@@ -48,6 +48,20 @@ export default {
 
       // 已完成已领取
       return 'default'
+    },
+    butText () {
+      // 未完成
+      if (this.value.currentNumber < this.value.completeNumber) {
+        return 'Go to finish'
+      }
+
+      // 未领取
+      if (!this.value.isReceive) {
+        return 'recive'
+      }
+
+      // 已完成已领取
+      return 'recived'
     }
   }
 }

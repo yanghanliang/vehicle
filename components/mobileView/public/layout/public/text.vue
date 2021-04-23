@@ -4,10 +4,10 @@
 
 <script>
 import mixin from '@/components/mobileView/mixin.js'
+import layoutMixin from '@/components/mobileView/public/layout/mixin.js'
 
 export default {
-  mixins: [mixin],
-  props: ['data'],
+  mixins: [mixin, layoutMixin],
   computed: {
     text () {
       return this.value.field ? this.data[this.value.field] : this.value.text

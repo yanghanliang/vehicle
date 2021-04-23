@@ -1,53 +1,29 @@
 <template>
-  <view :style="style">
-    <template v-for="(item, index) in value.children">
-      <layout-children
-        v-if="item.children && item.type === 'view'"
-        :key="item.type + index"
-        :value="item"
-        :data="data"
-      >
-      </layout-children>
-      <component
-        v-else
-        :is="item.type | componentsName('layout')"
-        :key="item.type + index"
-        :data="data"
-        :value="item"
-      >
-      </component>
-    </template>
+  <view class="layout-box">
+    <m-layout
+      v-for="(item, index) in value.data"
+      :value="value"
+      :data="item"
+      :key="index"
+    />
   </view>
 </template>
 
 <script>
 import mixin from '@/components/mobileView/mixin.js'
-
-// import layoutView from '@/components/mobileView/public/layout/view'
-import layoutText from '@/components/mobileView/public/layout/text'
-import layoutImage from '@/components/mobileView/public/layout/image'
-import layoutBottom from '@/components/mobileView/public/layout/bottom'
+import mLayout from '@/components/mobileView/public/layout/index'
 
 export default {
-  name: 'layoutChildren',
+  name: 'layoutBox',
   mixins: [mixin],
-  props: ['data'],
   components: {
-    // layoutView,
-    layoutText,
-    layoutImage,
-    layoutBottom,
-  },
-  filters: {
-    componentsName(type, prefix) {
-      if (type) {
-        return prefix + type.slice(0, 1).toLocaleUpperCase() + type.slice(1)
-      }
-
-      return 'handleImage'
-    },
+    mLayout,
   },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.layout-box {
+  
+}
+</style>

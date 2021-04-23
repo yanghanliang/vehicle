@@ -10,7 +10,6 @@
       <u-icon class="cb-delete" size="40" color="#fff" name="trash" @click="deleteComponent(index)"></u-icon>
       <component
         :value="item"
-        :data="item.data"
         :is="item.type | componentsName('view')"
         :key="item.type + index + Math.random()"
       ></component>
