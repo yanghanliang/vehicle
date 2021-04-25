@@ -9,19 +9,10 @@ export default {
 			}
 		}
 	},
-	// computed: {
-	// 	...mapState([
-	// 		'currentData'
-	// 	])
-	// },
     methods: {
         ...mapMutations([
             'updateView',
         ]),
-        // init(form) {
-        //     this.form = form
-		// 	console.log(form, 'form')
-        // },
     },
     watch: {
 		value: {

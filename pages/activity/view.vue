@@ -50,12 +50,11 @@ export default {
     baseStyle: {
       immediate: true,
       handler (newVal) {
-        console.log(newVal, 'baseStyle-改变了')
         this.value = { ...newVal }
         const params = { ...newVal }
 
         delete params.height
-        console.log(newVal, 'newVal-公共样式')
+        console.log(params, 'newVal-公共样式')
         // 如果是背景图片固定的情况，则进行特殊处理
         // 将公共样式和背景样式分开展示，并关闭公共样式的背景图片
         if (newVal.backgroundTypeId === STATUS.noScrolling) {
@@ -124,56 +123,56 @@ export default {
     }
   },
   created () {
-    this.getData()
-    // let viewList = ''
-    // let baseStyle = ''
-    // // #ifdef H5
-    // viewList = localStorage.getItem('viewList')
-    // baseStyle = localStorage.getItem('baseStyle')
-    // console.log('H5')
-    // // #endif
+    // this.getData()
+    let viewList = ''
+    let baseStyle = ''
+    // #ifdef H5
+    viewList = localStorage.getItem('viewList')
+    baseStyle = localStorage.getItem('baseStyle')
+    console.log('H5')
+    // #endif
 
-    // // #ifndef H5
-    // console.log('除了H5')
-    // // viewList = uni.getStorageSync('viewList')
-    // viewList = [
-    //   {
-    //     type: 'image',
-    //     width: '100%',
-    //     height: '300rpx',
-    //     marginTop: '',
-    //     marginBottom: '',
-    //     src: 'https://cdn.uviewui.com/uview/example/fade.jpg',
-    //     position: 0,
-    //   },
-    //   {
-    //     type: 'image',
-    //     width: '100%',
-    //     height: '300rpx',
-    //     marginTop: '',
-    //     marginBottom: '',
-    //     src: 'http://127.0.0.1:54414/5f11295729666ccee93aec034b7e1bc9.jpeg',
-    //     position: 1,
-    //   },
-    //   { type: 'textarea', text: '心朝大海，春暖花开', position: 2, index: '2' },
-    // ]
-    // // #endif
+    // #ifndef H5
+    console.log('除了H5')
+    // viewList = uni.getStorageSync('viewList')
+    viewList = [
+      {
+        type: 'image',
+        width: '100%',
+        height: '300rpx',
+        marginTop: '',
+        marginBottom: '',
+        src: 'https://cdn.uviewui.com/uview/example/fade.jpg',
+        position: 0,
+      },
+      {
+        type: 'image',
+        width: '100%',
+        height: '300rpx',
+        marginTop: '',
+        marginBottom: '',
+        src: 'http://127.0.0.1:54414/5f11295729666ccee93aec034b7e1bc9.jpeg',
+        position: 1,
+      },
+      { type: 'textarea', text: '心朝大海，春暖花开', position: 2, index: '2' },
+    ]
+    // #endif
 
-    // if (viewList) {
-    //   // #ifdef H5
-    //   this.updateViewList(JSON.parse(viewList))
-    //   // #endif
+    if (viewList) {
+      // #ifdef H5
+      this.updateViewList(JSON.parse(viewList))
+      // #endif
 
-    //   // #ifndef H5
-    //   this.updateViewList(viewList)
-    //   // #endif
-    // }
+      // #ifndef H5
+      this.updateViewList(viewList)
+      // #endif
+    }
 
-    // if (baseStyle) {
-    //   // #ifdef H5
-    //   this.updateBaseStyle(JSON.parse(baseStyle))
-    //   // #endif
-    // }
+    if (baseStyle) {
+      // #ifdef H5
+      this.updateBaseStyle(JSON.parse(baseStyle))
+      // #endif
+    }
   },
   data () {
     return {

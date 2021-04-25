@@ -1,11 +1,20 @@
 <template>
-  <u-form class="handle-image" :model="form" ref="uForm" :label-width="180">
+  <u-form class="handle-image" :model="form" ref="uForm" :label-width="Global.style.labelWidth">
+    <u-form-item label="图片样式" :border-bottom="false" :label-style="{ fontSize: '15px' }"></u-form-item>
     <u-form-item label="更换图片">
       <u-input v-model="form.src" />
       <u-button type="primary">选择文件</u-button>
     </u-form-item>
     <u-form-item label="">
-      <u-upload ref="uUpload" :action="action" :auto-upload="true"></u-upload>
+      <u-upload
+        ref="uUpload"
+        :action="action"
+        :show-progress="false"
+        :file-list="fileList"
+        :auto-upload="true"
+        @on-success="onSuccess"
+      >
+      </u-upload>
     </u-form-item>
     <u-form-item label="图片白边">
       <u-radio-group v-model="radio">
@@ -19,12 +28,12 @@
         </u-radio>
       </u-radio-group>
     </u-form-item>
-    <u-form-item label="模块上间距"
-      ><u-input v-model="form.marginTop"
-    /></u-form-item>
-    <u-form-item label="模块下间距"
-      ><u-input v-model="form.marginBottom"
-    /></u-form-item>
+    <u-form-item label="模块外间距">
+      <u-input v-model="form.margin" placeholder="上右下左，以空格隔开，例：10px 20px 30px 40px" />
+    </u-form-item>
+    <u-form-item label="模块内间距">
+      <u-input v-model="form.margin" placeholder="上右下左，以空格隔开，例：10px 20px 30px 40px" />
+    </u-form-item>
 		<u-button style="margin-top: 10px" @click="submit">更新图片</u-button>
   </u-form>
 </template>
@@ -36,11 +45,10 @@ export default {
   mixins: [mixin],
   data() {
     return {
-      action: 'http://www.example.com/upload',
+      action: 'http://47.98.182.149:3001/uploadFile',
       form: {
         src: '',
-        marginTop: '',
-        marginBottom: '',
+        margin: '',
       },
       radioList: [
         {
@@ -59,6 +67,9 @@ export default {
     submit() {
       this.form.src =
         'http://127.0.0.1:54414/5f11295729666ccee93aec034b7e1bc9.jpeg'
+    },
+    onSuccess(data, index, lists, name) {
+      console.log(data, index, lists, name, 'data, index, lists, name')
     },
   },
 }

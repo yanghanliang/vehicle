@@ -100,6 +100,8 @@ const store = new Vuex.Store({
       setTimeout(() => {
         state.viewList.splice(index, 1)
         state.viewList = [...state.viewList]
+        // 重置当前组件
+        state.currentData = {}
       })
     },
     // 更新 viewList
@@ -120,8 +122,9 @@ const store = new Vuex.Store({
       for (const key in item) {
         state.baseStyle[key] = item[key]
       }
-
+      
       state.baseStyle = { ...state.baseStyle }
+      console.log(state.baseStyle, 'state.baseStyle??')
     }
   },
 })

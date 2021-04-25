@@ -1,7 +1,7 @@
 <template>
 	<view class="handle">
     <handle-base />
-    <component :is="handleData.type | componentsName('handle')" :value="handleData" key="abc"></component>
+    <component :is="handleData.type | componentsName('handle')" :value="handleData"></component>
     <u-button style="margin-top: 10px" @click="submit">保存配置</u-button>
     <u-button style="margin-top: 10px" @click="updateDefaultData">更新组件默认配置</u-button>
   </view>

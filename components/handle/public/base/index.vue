@@ -1,31 +1,39 @@
 <template>
-  <u-form class="handle-image" :model="form" ref="uForm" :label-width="240">
-    <u-form-item label="设置背景颜色:">
-      <u-input @input="updateBaseStyle({ backgroundColor: form.backgroundColor })" v-model="form.backgroundColor" />
-    </u-form-item>
-    <u-form-item label="设置背景图:">
-      <u-input v-model="form.backgroundImage" @input="updateBaseStyle({ backgroundImage: form.backgroundImage })" />
-      <u-button type="primary">选择文件</u-button>
-    </u-form-item>
-    <u-form-item label="">
-      <u-upload ref="uUpload" :action="action" :auto-upload="true"></u-upload>
-    </u-form-item>
-    <u-form-item label="">
-      <u-radio-group v-model="form.backgroundType" @change="BTChange">
-        <u-radio
-          v-for="(item, index) in BTList"
-          :key="index"
-          :name="item.name"
-          :disabled="item.disabled"
-        >
-          {{ item.name }}
-        </u-radio>
-      </u-radio-group>
-    </u-form-item>
-    <u-form-item v-if="STATUS.noScrolling === form.backgroundTypeId" label="设置背景图高度:">
-      <u-input @input="updateBaseStyle({ height: form.height })" v-model="form.height" />
-    </u-form-item>
-  </u-form>
+  <u-collapse>
+		<u-collapse-item title="基础样式" :open="true">
+      <u-form class="handle-image" :model="form" ref="uForm" :label-width="Global.style.labelWidth">
+        <u-form-item label="设置背景颜色:">
+          <u-input @input="updateBaseStyle({ backgroundColor: form.backgroundColor })" v-model="form.backgroundColor" />
+        </u-form-item>
+        <u-form-item label="设置背景图:">
+          <u-col span="9">
+            <u-input v-model="form.backgroundImage" @input="updateBaseStyle({ backgroundImage: form.backgroundImage })" />
+          </u-col>
+          <u-col span="3">
+            <u-button type="primary">选择文件</u-button>
+          </u-col>
+        </u-form-item>
+        <u-form-item label="">
+          <u-upload ref="uUpload" :action="action" :auto-upload="true"></u-upload>
+        </u-form-item>
+        <u-form-item label="">
+          <u-radio-group v-model="form.backgroundType" @change="BTChange">
+            <u-radio
+              v-for="(item, index) in BTList"
+              :key="index"
+              :name="item.name"
+              :disabled="item.disabled"
+            >
+              {{ item.name }}
+            </u-radio>
+          </u-radio-group>
+        </u-form-item>
+        <u-form-item v-if="STATUS.noScrolling === form.backgroundTypeId" label="设置背景图高度:">
+          <u-input @input="updateBaseStyle({ height: form.height })" v-model="form.height" />
+        </u-form-item>
+      </u-form>
+		</u-collapse-item>
+	</u-collapse>
 </template>
 
 <script>
@@ -39,7 +47,7 @@ import { mapMutations, mapState } from 'vuex'
 export default {
   watch: {
     baseStyle: {
-      deep: true,
+      immediate: true,
       handler (newVal) {
         console.log(newVal, 'handle-base???')
         this.form = { ...newVal }

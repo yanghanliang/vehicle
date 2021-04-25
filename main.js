@@ -45,6 +45,10 @@ const i18n = new VueI18n({
 // 由于微信小程序的运行机制问题，需声明如下一行，H5和APP非必填
 Vue.prototype._i18n = i18n;
 
+import Global from '@/static/common/js/global/index.js'
+// 引入全局常量
+Vue.prototype.Global = Global
+
 const app = new Vue({
 	i18n,
 	store,

@@ -1,5 +1,6 @@
 <template>
-  <u-form class="handle-textarea" :model="form" ref="uForm" :label-width="180">
+  <u-form class="handle-textarea" :model="form" ref="uForm" :label-width="Global.style.labelWidth">
+    <u-form-item label="布局样式" :border-bottom="false" :label-style="{ fontSize: '15px' }"></u-form-item>
     <u-form-item label="内容">
       <textarea class="m-textarea" maxlength="100000000" v-model="form.config" placeholder="请开始你的表演" />
     </u-form-item>

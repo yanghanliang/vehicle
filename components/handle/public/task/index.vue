@@ -1,6 +1,6 @@
 <template>
-  <u-form class="handle-task" :model="form" ref="uForm" :label-width="200">
-    <u-form-item label="任务样式："> </u-form-item>
+  <u-form class="handle-task" :model="form" ref="uForm" :label-width="Global.style.labelWidth">
+    <u-form-item label="任务样式" :border-bottom="false" :label-style="{ fontSize: '15px' }"></u-form-item>
     <u-form-item label="更换图片">
       <u-input v-model="form.name" />
       <u-button type="primary">选择文件</u-button>
@@ -13,25 +13,17 @@
         :file-list="fileList"
         :auto-upload="true"
         @on-success="onSuccess"
-        @on-remove="onRemove"
       >
       </u-upload>
     </u-form-item>
-    <u-form-item label="模块间距(上右下左):"
-      ><u-input v-model="form.margin"
-    /></u-form-item>
-
+    <u-form-item label="模块间距:" placeholder="上右下左，以空格隔开，例：10px 20px 30px 40px">
+      <u-input v-model="form.margin" />
+    </u-form-item>
     <u-form-item label="任务详情:"> </u-form-item>
     <u-form-item label="任务名称:"><u-input v-model="form.name" /></u-form-item>
-    <u-form-item label="任务描述:"
-      ><u-input v-model="form.describe"
-    /></u-form-item>
+    <u-form-item label="任务描述:"><u-input v-model="form.describe" /></u-form-item>
     <u-form-item label="完成条件:">
-      <u-input
-        @click="conditionShow = !conditionShow"
-        v-model="form.condition"
-        type="select"
-      />
+      <u-input @click="conditionShow = !conditionShow" v-model="form.condition" type="select" />
       <u-picker
         @confirm="conditionSucess"
         mode="selector"
@@ -41,26 +33,16 @@
         range-key="name"
       ></u-picker>
     </u-form-item>
-    <u-form-item label="完成数量:"
-      ><u-input v-model="form.completeNumber"
-    /></u-form-item>
+    <u-form-item label="完成数量:"><u-input v-model="form.completeNumber" /></u-form-item>
     <u-form-item label="数据统计周期:">
       <u-radio-group v-model="form.statistics" @change="statisticsChange">
-        <u-radio
-          v-for="(item, index) in statisticsList"
-          :key="index"
-          :name="item.name"
-        >
+        <u-radio v-for="(item, index) in statisticsList" :key="index" :name="item.name">
           {{ item.name }}
         </u-radio>
       </u-radio-group>
     </u-form-item>
     <u-form-item label="奖励物品:">
-      <u-input
-        @click="rewardShow = !rewardShow"
-        v-model="form.reward"
-        type="select"
-      />
+      <u-input @click="rewardShow = !rewardShow" v-model="form.reward" type="select" />
       <u-picker
         @confirm="rewardSucess"
         mode="selector"
@@ -70,19 +52,11 @@
         range-key="name"
       ></u-picker>
     </u-form-item>
-    <u-form-item label="奖励数量:"
-      ><u-input v-model="form.rewardNumber"
-    /></u-form-item>
-    <u-form-item label="Go to finish 链接:"
-      ><u-input v-model="form.link"
-    /></u-form-item>
+    <u-form-item label="奖励数量:"><u-input v-model="form.rewardNumber" /></u-form-item>
+    <u-form-item label="Go to finish 链接:"><u-input v-model="form.link" /></u-form-item>
     <u-form-item label="奖励发放方式:">
       <u-radio-group v-model="form.mode" @change="modeChange">
-        <u-radio
-          v-for="(item, index) in modeList"
-          :key="index"
-          :name="item.name"
-        >
+        <u-radio v-for="(item, index) in modeList" :key="index" :name="item.name">
           {{ item.name }}
         </u-radio>
       </u-radio-group>
@@ -96,11 +70,7 @@
       />
     </u-form-item>
     <u-form-item label="用户参与条件:">
-      <u-input
-        @click="userShow = !userShow"
-        v-model="form.user"
-        type="select"
-      />
+      <u-input @click="userShow = !userShow" v-model="form.user" type="select" />
       <u-picker
         @confirm="userSucess"
         mode="selector"
@@ -110,9 +80,7 @@
         range-key="name"
       ></u-picker>
     </u-form-item>
-    <u-form-item label="受限用户提示:"
-      ><u-input v-model="form.tips"
-    /></u-form-item>
+    <u-form-item label="受限用户提示:"><u-input v-model="form.tips" /></u-form-item>
   </u-form>
 </template>
 
@@ -128,7 +96,7 @@ export default {
         console.log(newVal, 'newVal')
       },
     },
-    fileList (newVal) {
+    fileList(newVal) {
       console.log(newVal, 'newVal??')
     },
   },
@@ -170,12 +138,12 @@ export default {
       statisticsList: [
         {
           value: 0,
-          name: '自活动开始'
+          name: '自活动开始',
         },
         {
           value: 1,
-          name: '包括历史数据'
-        }
+          name: '包括历史数据',
+        },
       ],
       userList: [
         {
@@ -242,39 +210,36 @@ export default {
       rewardList: [
         {
           value: 0,
-          name: '卢比'
+          name: '卢比',
         },
         {
           value: 1,
-          name: '3天3%牛'
+          name: '3天3%牛',
         },
         {
           value: 2,
-          name: '5天4%牛'
+          name: '5天4%牛',
         },
         {
           value: 3,
-          name: '7天5%牛'
+          name: '7天5%牛',
         },
         {
           value: 4,
-          name: '14天6%牛'
+          name: '14天6%牛',
         },
         {
           value: 5,
-          name: '30天7%牛'
+          name: '30天7%牛',
         },
         {
           value: 6,
-          name: '60天8%牛'
-        }
-      ]
+          name: '60天8%牛',
+        },
+      ],
     }
   },
   methods: {
-    onRemove(index, lists, name) {
-      console.log(index, lists, name, 'index, lists, name')
-    },
     onSuccess(data, index, lists, name) {
       console.log(data, index, lists, name, 'data, index, lists, name')
     },
@@ -288,9 +253,7 @@ export default {
     },
     conditionSucess([value]) {
       this.form.conditionId = value
-      this.form.condition = this.conditionList.find(
-        (item) => item.value === value
-      ).name
+      this.form.condition = this.conditionList.find((item) => item.value === value).name
     },
     modeChange(name) {
       this.form.mode = name
@@ -299,19 +262,19 @@ export default {
     statisticsChange(name) {
       this.form.statistics = name
       this.form.statisticsId = this.statisticsList.find((item) => item.name === name).value
-    }
+    },
   },
 }
 </script>
 
 <style lang="scss">
-  uni-modal /deep/ .uni-modal__hd {
-    padding: 1em 44% .3em;
+uni-modal /deep/ .uni-modal__hd {
+  padding: 1em 44% 0.3em;
 
-    .uni-modal__title {
-      height: 48upx;
-    }
+  .uni-modal__title {
+    height: 48upx;
   }
+}
 </style>
 
 <style lang="scss" scoped>
