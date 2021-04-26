@@ -14,7 +14,14 @@
           </u-col>
         </u-form-item>
         <u-form-item label="">
-          <u-upload ref="uUpload" :action="action" :auto-upload="true"></u-upload>
+          <u-upload
+            ref="uUpload"
+            :action="action"
+            :show-progress="false"
+            :auto-upload="true"
+            @on-success="onSuccess"
+          >
+          </u-upload>
         </u-form-item>
         <u-form-item label="">
           <u-radio-group v-model="form.backgroundType" @change="BTChange">
@@ -52,6 +59,11 @@ export default {
         console.log(newVal, 'handle-base???')
         this.form = { ...newVal }
       }
+    },
+    src (newVal) {
+      this.form.backgroundImage = `url(${newVal})`
+      this.updateBaseStyle({ backgroundImage: this.form.backgroundImage })
+      console.log(this.form.backgroundImage, 'this.form.backgroundImage')
     }
   },
   computed: {
@@ -78,7 +90,7 @@ export default {
   data() {
     return {
       STATUS,
-      action: 'http://www.example.com/upload',
+      action: 'http://47.98.182.149:3001/uploadFile',
       form: {
 				// type: 'base',
         // height: '100px',
@@ -98,6 +110,7 @@ export default {
           name: '背景图固定',
         },
       ],
+      src: '',
     }
   },
   methods: {
@@ -119,6 +132,10 @@ export default {
         backgroundTypeId: this.form.backgroundTypeId,
       })
     },
+    onSuccess (data, index, lists, name) {
+      console.log(data, index, lists, name, 'data, index, lists, name')
+      this.src = 'http://47.98.182.149:3001/' + data.url
+    }
   },
 }
 </script>
