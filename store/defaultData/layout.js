@@ -169,15 +169,15 @@ export default {
     },
   ],
   data: [
-    {
-      name: '000',
-      cover:
-        'https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png',
-      total: '000',
-      period: '000',
-      price: '000',
-      remaining: '000',
-    },
+    // {
+    //   name: '000',
+    //   cover:
+    //     'https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png',
+    //   total: '000',
+    //   period: '000',
+    //   price: '000',
+    //   remaining: '000',
+    // },
     {
       name: '111',
       cover:

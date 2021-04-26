@@ -1,12 +1,7 @@
 <template>
   <view class="activity">
     <view class="activity-left">
-      <view
-        v-for="(item, index) in typeList"
-        :key="index"
-        :type="item.type"
-        class="al-item"
-      >
+      <view v-for="(item, index) in typeList" :key="index" :type="item.type" class="al-item">
         {{ item.text }}
       </view>
     </view>
@@ -34,17 +29,15 @@ export default {
   name: 'activity',
   components: {
     mView,
-    mHandle
+    mHandle,
   },
   computed: {
-    ...mapState([
-      'defaultData',
-    ]),
-    defaultConfig () {
+    ...mapState(['defaultData']),
+    defaultConfig() {
       return this.defaultData[this.type]
     },
   },
-  data () {
+  data() {
     return {
       isPressDown: false, // 是否按下
       isDrag: false, // 是否拖动
@@ -75,14 +68,12 @@ export default {
       ],
     }
   },
-  mounted () {
+  mounted() {
     this.init()
   },
   methods: {
-    ...mapMutations([
-      'updateData',
-    ]),
-    getComponentInfo () {
+    ...mapMutations(['updateData']),
+    getComponentInfo() {
       const arr = []
       const componentBox = document.querySelectorAll('.component-box')
       componentBox.forEach((item, index) => {
@@ -97,14 +88,12 @@ export default {
 
       this.componentInfo = arr
     },
-    init () {
+    init() {
       const vm = this
 
       const My = function () {
         this.box = document.querySelector('.activity') // 最外层的盒子元素
-        this.clickEleInfo = document
-          .querySelector('.al-item')
-          .getBoundingClientRect() // 获取点击元素的样式
+        this.clickEleInfo = document.querySelector('.al-item').getBoundingClientRect() // 获取点击元素的样式
         this.line = null // 提示线条
         this.clickEle = null // 开始元素
         this.isDrag = false // 拖动
@@ -161,28 +150,14 @@ export default {
           const e = window.event || event
 
           // 分别兼容ie和chrome
-          const scrollX =
-            document.documentElement.scrollLeft || document.body.scrollLeft
-          const scrollY =
-            document.documentElement.scrollTop || document.body.scrollTop
+          const scrollX = document.documentElement.scrollLeft || document.body.scrollLeft
+          const scrollY = document.documentElement.scrollTop || document.body.scrollTop
           // 获取 x 和 y
           that.end_x = e.clientX + scrollX
           that.end_y = e.clientY + scrollY
 
           // 移动组件
           that.moveComponent(e)
-
-          // 判断是否需要移动元素
-          if (that.isDrag) {
-            const offsetTop = that.parentEle.getBoundingClientRect().y
-            that.cloneEle.style.top =
-              that.end_y - offsetTop - that.clickEleInfo.height / 2 + 'px'
-            that.cloneEle.style.left =
-              that.end_x -
-              that.parentEle.offsetLeft -
-              that.clickEleInfo.width / 2 +
-              'px'
-          }
         }
       }
 
@@ -279,10 +254,11 @@ export default {
         }
 
         // 设置结束坐标
-        this.cloneEle.style.top = this.end_y
-        this.cloneEle.style.left = this.end_x
-        this.cloneEle.style.position = 'absolute'
+        const offsetTop = this.parentEle.getBoundingClientRect().y
         this.cloneEle.style.zIndex = '-1'
+        this.cloneEle.style.position = 'absolute'
+        this.cloneEle.style.top = this.end_y - offsetTop - this.clickEleInfo.height / 2 + 'px'
+        this.cloneEle.style.left = this.end_x - this.parentEle.offsetLeft - this.clickEleInfo.width / 2 + 'px'
       }
 
       /**
@@ -310,7 +286,7 @@ export default {
 
       new My()
     },
-  }
+  },
 }
 </script>
 
@@ -363,7 +339,7 @@ export default {
       padding: 140upx 26upx 0 24upx;
       background-repeat: no-repeat;
       background-size: 700upx 1380upx;
-      background-image: url("../../static/images/activity/iPhoneX_model.png");
+      background-image: url('../../static/images/activity/iPhoneX_model.png');
     }
 
     .mobile-view {

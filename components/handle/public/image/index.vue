@@ -10,7 +10,6 @@
         ref="uUpload"
         :action="action"
         :show-progress="false"
-        :file-list="fileList"
         :auto-upload="true"
         @on-success="onSuccess"
       >
