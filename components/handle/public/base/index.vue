@@ -63,6 +63,7 @@ export default {
     src (newVal) {
       this.form.backgroundImage = `url(${newVal})`
       this.updateBaseStyle({ backgroundImage: this.form.backgroundImage })
+      if (1 === 1)
       console.log(this.form.backgroundImage, 'this.form.backgroundImage')
     }
   },
