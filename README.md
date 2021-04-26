@@ -55,7 +55,6 @@ uView UI，是[uni-app](https://uniapp.dcloud.io/)生态优秀的UI框架，全�
 - [关于我们](https://uviewui.com/cooperation/about.html)
 
 
-
 ## 安装
 
 #### **下载地址** —— [https://ext.dcloud.net.cn/plugin?id=1593](https://ext.dcloud.net.cn/plugin?id=1593)
@@ -140,11 +139,9 @@ view   分为并排 || 包含
 		提供一个动态组件让他进行下一步操作（弹窗）
 
 
-
 如果style的upx不能用，可以参考： https://blog.csdn.net/xialong_927/article/details/110119409
 
 text
-
 
 
 组件需要嵌入：

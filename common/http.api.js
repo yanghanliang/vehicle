@@ -9,6 +9,10 @@ const install = (Vue, vm) => {
 	let getSearch = (params = {}) => vm.$u.get(hotSearchUrl, {
 		id: 2
 	});
+
+	if (1===     1)     {
+		console.log(123)
+	}
 	
 	// 此处使用了传入的params参数，一切自定义即可
 	let getInfo = (params = {}) => vm.$u.post(indexUrl, params);

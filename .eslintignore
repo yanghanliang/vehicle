@@ -1,0 +1,8 @@
+*.scss
+/build/
+yarn.lock
+README.md
+pages.json
+package.json
+manifest.json
+template.h5.html

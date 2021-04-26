@@ -33,11 +33,11 @@ export default {
   },
   computed: {
     ...mapState(['defaultData']),
-    defaultConfig() {
+    defaultConfig () {
       return this.defaultData[this.type]
     },
   },
-  data() {
+  data () {
     return {
       isPressDown: false, // 是否按下
       isDrag: false, // 是否拖动
@@ -68,12 +68,12 @@ export default {
       ],
     }
   },
-  mounted() {
+  mounted () {
     this.init()
   },
   methods: {
     ...mapMutations(['updateData']),
-    getComponentInfo() {
+    getComponentInfo () {
       const arr = []
       const componentBox = document.querySelectorAll('.component-box')
       componentBox.forEach((item, index) => {
@@ -88,7 +88,7 @@ export default {
 
       this.componentInfo = arr
     },
-    init() {
+    init () {
       const vm = this
 
       const My = function () {
