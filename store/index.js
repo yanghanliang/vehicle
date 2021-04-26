@@ -43,7 +43,7 @@ const store = new Vuex.Store({
     currentData: {
       position: '',
     },
-		position: '',
+    position: '',
     backgroundImage: '', // 公共的背景图片
     baseStyle: {
       type: 'base',
@@ -57,12 +57,12 @@ const store = new Vuex.Store({
   },
   mutations: {
     // 更新视图及当前数据
-    updateData(state, params) {
+    updateData (state, params) {
       console.log(params, 'params')
       state.currentData = {
         type: state.currentData.type,
       }
-      for (let key in params) {
+      for (const key in params) {
         state.currentData[key] = params[key]
       }
 
@@ -70,10 +70,10 @@ const store = new Vuex.Store({
       if (params.index) {
         // 重置数据状态
         delete state.currentData.index
-				// 插入数据
+        // 插入数据
         state.viewList.splice(params.index, 0, { ...state.currentData })
-				console.log(JSON.stringify(state.viewList), 'state.viewList????', params.index, state.currentData)
-				// 更新当前数据的位置
+        console.log(JSON.stringify(state.viewList), 'state.viewList????', params.index, state.currentData)
+        // 更新当前数据的位置
         state.currentData.position = params.index
         return false
       }
@@ -89,14 +89,14 @@ const store = new Vuex.Store({
       // console.log(state.viewList, 'state.viewList-更新视图')
     },
     // 只更新视图
-    updateView(state, params) {
-			// 这里不能直接更新当前数据，会出现递归更新，导致页面卡死
+    updateView (state, params) {
+      // 这里不能直接更新当前数据，会出现递归更新，导致页面卡死
       const position = state.currentData.position
       state.viewList[position] = { ...params, position }
       state.viewList = [...state.viewList]
     },
     // 删除组件
-    deleteComponent(state, index) {
+    deleteComponent (state, index) {
       setTimeout(() => {
         state.viewList.splice(index, 1)
         state.viewList = [...state.viewList]
@@ -105,24 +105,24 @@ const store = new Vuex.Store({
       })
     },
     // 更新 viewList
-    updateViewList(state, viewList) {
+    updateViewList (state, viewList) {
       state.viewList = [...viewList]
     },
-		// 更新默认配置
-		updateDefaultData (state) {
-			state.defaultData[state.currentData.type] =  { ...state.viewList[state.currentData.position] }
-			console.log(state.defaultData, 'state.defaultData', state.currentData.type, state.currentData)
-			uni.showToast({
-				title: '更新默认配置成功',
-				duration: 2000
-			});
-		},
+    // 更新默认配置
+    updateDefaultData (state) {
+      state.defaultData[state.currentData.type] =  { ...state.viewList[state.currentData.position] }
+      console.log(state.defaultData, 'state.defaultData', state.currentData.type, state.currentData)
+      uni.showToast({
+        title: '更新默认配置成功',
+        duration: 2000
+      })
+    },
     // 更新 公共样式
     updateBaseStyle (state, item) {
       for (const key in item) {
         state.baseStyle[key] = item[key]
       }
-      
+
       state.baseStyle = { ...state.baseStyle }
       console.log(state.baseStyle, 'state.baseStyle??')
     }

@@ -1,8 +1,11 @@
-*.scss
 /build/
+/uview-ui/
+
+*.scss
 yarn.lock
 README.md
 pages.json
 package.json
 manifest.json
 template.h5.html
+vue-i18n.min.js
