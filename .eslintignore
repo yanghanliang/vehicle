@@ -1,11 +1,17 @@
-/build/
-/uview-ui/
+build/*
+uview-ui/*
+node_modules/*
+unpackage/*
 
 *.scss
+*.png
+*.ico
 yarn.lock
 README.md
 pages.json
 package.json
 manifest.json
 template.h5.html
+error.html
 vue-i18n.min.js
+touch-emulator.js

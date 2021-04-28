@@ -24,6 +24,6 @@ export default {
 
 <style lang="scss" scoped>
 .layout-box {
-  
+
 }
 </style>

@@ -42,7 +42,7 @@ import mixin from '@/components/handle/mixin.js'
 
 export default {
   mixins: [mixin],
-  data() {
+  data () {
     return {
       action: 'http://47.98.182.149:3001/uploadFile',
       form: {
@@ -63,11 +63,11 @@ export default {
     }
   },
   methods: {
-    submit() {
+    submit () {
       this.form.src =
         'http://127.0.0.1:54414/5f11295729666ccee93aec034b7e1bc9.jpeg'
     },
-    onSuccess(data, index, lists, name) {
+    onSuccess (data, index, lists, name) {
       console.log(data, index, lists, name, 'data, index, lists, name')
     },
   },

@@ -22,7 +22,7 @@ export default {
       console.log(newVal, 'newVal-data')
     }
   },
-  mounted() {
+  mounted () {
     console.log(this.data, 'data????')
   },
 }
@@ -30,6 +30,6 @@ export default {
 
 <style lang="scss" scoped>
 .test {
-  
+
 }
 </style>

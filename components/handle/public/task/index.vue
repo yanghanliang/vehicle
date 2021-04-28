@@ -92,18 +92,15 @@ export default {
   watch: {
     form: {
       deep: true,
-      handler(newVal) {
+      handler (newVal) {
         console.log(newVal, 'newVal')
       },
     },
-    fileList(newVal) {
+    fileList (newVal) {
       console.log(newVal, 'newVal??')
     },
   },
-  computed: {
-    contact() {},
-  },
-  data() {
+  data () {
     return {
       action: 'http://47.98.182.149:3001/uploadFile',
       fileList: [],
@@ -130,7 +127,6 @@ export default {
         conditionId: '',
         user: '',
         userId: '',
-        reward: '',
         rewardId: '',
         rewardNumber: '',
         isReceive: false, // 是否领取
@@ -240,26 +236,26 @@ export default {
     }
   },
   methods: {
-    onSuccess(data, index, lists, name) {
+    onSuccess (data, index, lists, name) {
       console.log(data, index, lists, name, 'data, index, lists, name')
     },
-    userSucess([value]) {
+    userSucess ([value]) {
       this.form.userId = value
       this.form.user = this.userList.find((item) => item.value === value).name
     },
-    rewardSucess([value]) {
+    rewardSucess ([value]) {
       this.form.rewardId = value
       this.form.reward = this.rewardList.find((item) => item.value === value).name
     },
-    conditionSucess([value]) {
+    conditionSucess ([value]) {
       this.form.conditionId = value
       this.form.condition = this.conditionList.find((item) => item.value === value).name
     },
-    modeChange(name) {
+    modeChange (name) {
       this.form.mode = name
       this.form.modeId = this.modeList.find((item) => item.name === name).value
     },
-    statisticsChange(name) {
+    statisticsChange (name) {
       this.form.statistics = name
       this.form.statisticsId = this.statisticsList.find((item) => item.name === name).value
     },

@@ -44,12 +44,12 @@
 </template>
 
 <script>
+// 它是独立的不用 mixin
+import { mapMutations, mapState } from 'vuex'
 const STATUS = {
   roll: 0,
   noScrolling: 1,
 }
-// 它是独立的不用 mixin
-import { mapMutations, mapState } from 'vuex'
 
 export default {
   watch: {
@@ -63,8 +63,6 @@ export default {
     src (newVal) {
       this.form.backgroundImage = `url(${newVal})`
       this.updateBaseStyle({ backgroundImage: this.form.backgroundImage })
-      if (1 ===     1)
-      console.log(this.form.backgroundImage, 'this.form.backgroundImage')
     }
   },
   computed: {
@@ -73,7 +71,7 @@ export default {
       'baseStyle',
     ]),
   },
-  created() {
+  created () {
     // let baseStyle = ''
     // // #ifdef H5
     // baseStyle = localStorage.getItem('baseStyle')
@@ -88,18 +86,18 @@ export default {
     //   // #endif
     // }
   },
-  data() {
+  data () {
     return {
       STATUS,
       action: 'http://47.98.182.149:3001/uploadFile',
       form: {
-				// type: 'base',
+        // type: 'base',
         // height: '100px',
-				// testPosition: '',
+        // testPosition: '',
         // backgroundType: '背景图随页面滚动',
         // backgroundTypeId: STATUS.roll,
         // backgroundColor: '#ddd',
-				// backgroundImage: 'url()',
+        // backgroundImage: 'url()',
       },
       BTList: [
         {
@@ -118,13 +116,13 @@ export default {
     ...mapMutations([
       'updateBaseStyle',
     ]),
-    submit() {
+    submit () {
       // this.value.src = this.$refs.uUpload.lists[0].url
       this.value.src =
         'http://127.0.0.1:54414/5f11295729666ccee93aec034b7e1bc9.jpeg'
       // this.updateView({ src: this.value.src })
     },
-    BTChange(name) {
+    BTChange (name) {
       this.form.backgroundType = name
       this.form.backgroundTypeId = this.BTList.find((item) => item.name === name).value
 

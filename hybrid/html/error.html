@@ -26,8 +26,8 @@
         font-weight: normal;
         text-decoration: none;
         text-align: center;
-        padding: .5em 0em;
-        margin: .5em auto;
+        padding: 0.5em 0em;
+        margin: 0.5em auto;
         color: #333333;
         border-radius: 22px;
         /*   background-color: #EEEEEE;
@@ -37,18 +37,18 @@
       }
 
       .button:active {
-        background-color: #CCCCCC;
+        background-color: #cccccc;
       }
 
       .back {
-        color: #6767EA;
-        border: 1px solid #6767EA;
+        color: #6767ea;
+        border: 1px solid #6767ea;
       }
 
       .reload {
         color: #fff;
         border: none;
-        background: linear-gradient(to right, #6767EA, #75ACFF);
+        background: linear-gradient(to right, #6767ea, #75acff);
         margin-left: 60upx;
       }
 
@@ -58,31 +58,34 @@
         padding-top: 188px;
       }
 
-      .error>img {
+      .error > img {
         width: 40%;
       }
     </style>
   </head>
   <body>
     <div class="error">
-      <img src="../../static/error.jpg" alt="">
+      <img src="../../static/error.jpg" alt="" />
       <div id="info">Page not found</div>
     </div>
-		
-		<script type="text/javascript">
-		  function plusReady() {
-		    // Android处理返回键
-		    plus.key.addEventListener('backbutton', function() {
-		      plus.webview.close(plus.webview.getTopWebview())
-		    }, false);
-		
-		  }
 
-		  if (window.plus) {
-		    plusReady();
-		  } else {
-		    document.addEventListener('plusready', plusReady, false);
-		  }
-		</script>
+    <script type="text/javascript">
+      function plusReady() {
+        // Android处理返回键
+        plus.key.addEventListener(
+          'backbutton',
+          function () {
+            plus.webview.close(plus.webview.getTopWebview())
+          },
+          false
+        )
+      }
+
+      if (window.plus) {
+        plusReady()
+      } else {
+        document.addEventListener('plusready', plusReady, false)
+      }
+    </script>
   </body>
 </html>

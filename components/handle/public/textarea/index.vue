@@ -38,7 +38,7 @@ import mixin from '@/components/handle/mixin.js'
 
 export default {
   mixins: [mixin],
-  data() {
+  data () {
     return {
       form: {
         href: '',

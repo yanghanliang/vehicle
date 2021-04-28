@@ -9,21 +9,21 @@
 
 <script>
 import mixin from '@/components/mobileView/mixin.js'
-import { mapMutations, mapState } from 'vuex'
+import { mapMutations } from 'vuex'
 
 export default {
   mixins: [mixin],
-  data() {
+  data () {
     return {
       form: {
-				config: '',
-			},
+        config: '',
+      },
     }
   },
   watch: {
     value: {
       immediate: true,
-      handler(newVal) {
+      handler (newVal) {
         this.form.config = JSON.stringify(newVal)
       },
     },
@@ -34,11 +34,11 @@ export default {
       },
     },
   },
-	methods: {
-		...mapMutations([
-			'updateView',
-		]),
-	},
+  methods: {
+    ...mapMutations([
+      'updateView',
+    ]),
+  },
 }
 </script>
 

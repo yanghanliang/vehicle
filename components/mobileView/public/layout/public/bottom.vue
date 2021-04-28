@@ -14,6 +14,6 @@ export default {
 
 <style lang="scss" scoped>
 .test {
-  
+
 }
 </style>

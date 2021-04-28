@@ -47,7 +47,7 @@ export default {
       }
     },
   },
-  data() {
+  data () {
     return {
       handleData: {}, // 操作的数据
     }
@@ -60,7 +60,7 @@ export default {
       localStorage.setItem('viewList', JSON.stringify(this.viewList))
       localStorage.setItem('baseStyle', JSON.stringify(this.baseStyle))
     },
-    updateImage() {
+    updateImage () {
       this.form.src = 'http://127.0.0.1:54414/5f11295729666ccee93aec034b7e1bc9.jpeg'
     },
   },

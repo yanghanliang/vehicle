@@ -39,7 +39,7 @@ export default {
     layoutBottom,
   },
   filters: {
-    componentsName(type, prefix) {
+    componentsName (type, prefix) {
       if (type) {
         return prefix + type.slice(0, 1).toLocaleUpperCase() + type.slice(1)
       }

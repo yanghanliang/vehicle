@@ -1,3 +1,3 @@
 export default {
-    labelWidth: 200,
+  labelWidth: 200,
 }

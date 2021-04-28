@@ -11,8 +11,8 @@
 import mixin from '@/components/mobileView/mixin.js'
 
 export default {
-    name: 'mTextarea',
-    mixins: [mixin],
+  name: 'mTextarea',
+  mixins: [mixin],
 }
 </script>
 
